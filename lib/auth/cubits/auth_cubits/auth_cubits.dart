@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, avoid_print
+// ignore_for_file: non_constant_identifier_names, avoid_print, equal_keys_in_map
 
 import 'package:bloc/bloc.dart';
 import 'package:charity_app/auth/cubits/auth_cubits/auth_states.dart';
@@ -8,20 +8,21 @@ import 'package:charity_app/main.dart';
 class AuthCubits extends Cubit<AuthStates> {
   AuthCubits() : super(InitializeState());
 //التابع تبع إنشاء حساب
-  Future<void> signUpFunction(
-      {required fullNameController,
-      required emailController,
-      required passwordConfirmationController,
-      required passwordController,
-      required phoneNumberController}) async {
+  Future<void> signUpFunction({
+    required fullNameController,
+    required emailController,
+    required passwordConfirmationController,
+    required passwordController,
+    required phoneController,
+  }) async {
     emit(LoadingStates());
     try {
       final responseData = await Api().post(
-        url: "http://$localhost/api/register",
+        url: "http://$localhost/api/register/beneficiary",
         body: {
           "full_name": fullNameController.text,
           "email": emailController.text,
-          "phone_number": phoneNumberController.text,
+          "phone_number": phoneController.text,
           "password": passwordController.text,
           "password_confirmation": passwordConfirmationController.text,
         },
@@ -38,6 +39,7 @@ class AuthCubits extends Cubit<AuthStates> {
       emit(RegisterFailureState(e.toString()));
     }
   }
+
 //التابع تبع تسجيل دخول
   Future<void> logInFunction({
     required emailController,
@@ -47,14 +49,14 @@ class AuthCubits extends Cubit<AuthStates> {
 
     try {
       final response = await Api().post(
-        url: "http://$localhost/api/login",
+        url: "http://$localhost/api/login/beneficiary",
         body: {
           "email": emailController.text,
           "password": passwordController.text,
         },
         token: '',
       );
-     
+
       final token = response['token'];
       await sharedPreferences.setString('token', token);
       print("$token");
@@ -63,6 +65,7 @@ class AuthCubits extends Cubit<AuthStates> {
       emit(LoginFailureState(e.toString()));
     }
   }
+
 //التابع تبع تسجيل خروج
   Future<void> logOutFunction() async {
     emit(LoadingStates());
@@ -70,7 +73,9 @@ class AuthCubits extends Cubit<AuthStates> {
       final token = sharedPreferences.getString('token');
 
       final response = await Api().post(
-          url: "http://$localhost/api/logout", body: null, token: "$token");
+          url: "http://$localhost/api/logout/beneficiary",
+          body: null,
+          token: "$token");
       if (response["message"] == 'Logout successful') {
         emit(LogOutSuccess());
       } else {

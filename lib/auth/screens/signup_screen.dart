@@ -16,11 +16,11 @@ class SignUpScreen extends StatelessWidget {
 
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController phoneNumberController = TextEditingController();
+  // final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController passwordConfirmationController =
       TextEditingController();
-
+  final TextEditingController phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final colorScheme = context.colorScheme;
@@ -37,7 +37,7 @@ class SignUpScreen extends StatelessWidget {
                 content: Center(child: Text(" تم إنشاء الحساب بنجاح ")),
               ),
             );
-            Navigator.pushNamed(context, 'PinCode');
+            Navigator.pushNamed(context, 'LogIn');
           } else if (state is RegisterFailureState) {
             ScaffoldMessenger.of(context).clearSnackBars();
             ScaffoldMessenger.of(context).showSnackBar(
@@ -116,6 +116,35 @@ class SignUpScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 12),
                             AuthCustomTextField(
+                                color: colorScheme.secondary,
+                                hint: "رقم المُهدى إليه",
+                                inputType: TextInputType.number,
+                                mycontroller: phoneController,
+                                icon: const Icon(Icons.phone_enabled_rounded),
+                                valid: (value) {
+                                  if (value!.isEmpty) {
+                                    return "رقم المُهدى إليه مطلوب";
+                                  }
+                                  if (!value.startsWith("09")) {
+                                    return "يجب أن يبدأ الرقم ب 09";
+                                  }
+                                  if (value.length != 10) {
+                                    return "يجب أن يتكون الرقم من 10 أرقام";
+                                  }
+                                  if (value.startsWith(".") ||
+                                      value.startsWith(",") ||
+                                      value.startsWith("-")) {
+                                    return "يُرجى إدخال الرقم بطريقة صحيحة";
+                                  }
+                                  if (value.contains(".") ||
+                                      value.contains(",") ||
+                                      value.contains("-")) {
+                                    return "يُرجى إدخال الرقم بطريقة صحيحة";
+                                  }
+                                  return null;
+                                }),
+                            const SizedBox(height: 12),
+                            AuthCustomTextField(
                               hint: 'ادخل كلمة المرور',
                               icon: const Icon(BoxIcons.bx_lock_alt),
                               inputType: TextInputType.visiblePassword,
@@ -155,14 +184,15 @@ class SignUpScreen extends StatelessWidget {
                                 if (formKey.currentState!.validate()) {
                                   BlocProvider.of<AuthCubits>(context)
                                       .signUpFunction(
-                                    fullNameController: fullNameController,
-                                    emailController: emailController,
-                                    passwordConfirmationController:
-                                        passwordConfirmationController,
-                                    passwordController: passwordController,
-                                    phoneNumberController:
-                                        phoneNumberController,
-                                  );
+                                          fullNameController:
+                                              fullNameController,
+                                          emailController: emailController,
+                                          passwordConfirmationController:
+                                              passwordConfirmationController,
+                                          passwordController:
+                                              passwordController,
+                                          phoneController:
+                                              phoneController);
                                 }
                               },
                               color: colorScheme.secondary,

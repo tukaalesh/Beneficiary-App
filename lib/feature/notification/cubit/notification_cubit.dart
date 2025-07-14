@@ -17,10 +17,9 @@ class NotificationCubit extends Cubit<NotificationState> {
     try {
       final token = sharedPreferences.getString('token');
 
-      final res = await Api().post(
-        url: "http://$localhost/api/notifications",
+      final res = await Api().get(
+        url: "http://$localhost/api/notifications/beneficiary",
         token: "$token",
-        body: null,
       );
 
       if (res['notifications'] == null || res['notifications'] is! List) {
@@ -40,7 +39,6 @@ class NotificationCubit extends Cubit<NotificationState> {
             try {
               return NotificationModel.fromJson(e);
             } catch (e) {
-          
               return null;
             }
           })
@@ -50,7 +48,7 @@ class NotificationCubit extends Cubit<NotificationState> {
 
       if (!isClosed) emit(NotificationSuccess(notifications));
     } catch (e, stackTrace) {
-           if (!isClosed) emit(NotificationError("حدث خطأ أثناء جلب البيانات"));
+      if (!isClosed) emit(NotificationError("حدث خطأ أثناء جلب البيانات"));
     }
   }
 }
