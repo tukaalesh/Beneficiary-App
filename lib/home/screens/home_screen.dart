@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: colorScheme.surface,
-        appBar: ConstAppBar1(title: "الصفحة الرئيسية"),
+        appBar: const ConstAppBar1(title: "الصفحة الرئيسية"),
       ),
     );
   }

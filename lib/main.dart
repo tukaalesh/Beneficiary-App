@@ -10,7 +10,6 @@ import 'package:charity_app/feature/Feedback/cubit/feedback_cubit.dart';
 import 'package:charity_app/feature/notification/screen/notification_screen.dart';
 import 'package:charity_app/home/cubits/navigation/navigation_cubit.dart';
 import 'package:charity_app/home/cubits/themeCubit/theme_cubit.dart';
-import 'package:charity_app/home/screens/home_page.dart';
 import 'package:charity_app/home/screens/navigation_main.dart';
 import 'package:charity_app/home/screens/setting.dart';
 import 'package:flutter/material.dart';

@@ -22,3 +22,4 @@ ImageProvider globalNetwork =
 ImageProvider learning = const AssetImage('assets/images/training.png');
 
 ImageProvider hand = const AssetImage('assets/images/hand.png');
+Image nutritional = Image.asset('assets/images/nutritional.jpg');

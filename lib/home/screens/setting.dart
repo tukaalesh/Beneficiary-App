@@ -7,7 +7,6 @@ import 'package:charity_app/auth/cubits/user_cubit/user_states.dart';
 import 'package:charity_app/constants/const_alert_dilog.dart';
 import 'package:charity_app/constants/const_appBar.dart';
 import 'package:charity_app/core/extensions/context_extensions.dart';
-import 'package:charity_app/home/widgets/initial_circle.dart';
 import 'package:charity_app/home/widgets/settings_rowItem.dart';
 import 'package:charity_app/main.dart';
 import 'package:flutter/material.dart';

@@ -101,8 +101,9 @@ class LoginScreen extends StatelessWidget {
                                 color: colorScheme.secondary,
                                 isPassword: true,
                                 valid: (value) {
-                                  if (value!.isEmpty)
+                                  if (value!.isEmpty) {
                                     return "كلمة المرور مطلوبة";
+                                  }
                                   if (value.length < 8) {
                                     return "يجب أن تحتوي على 8 أحرف على الأقل";
                                   }

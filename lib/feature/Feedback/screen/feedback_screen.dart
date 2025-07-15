@@ -78,7 +78,7 @@ class FeedbackScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 15),
                           Padding(
-                            padding: EdgeInsets.only(right: 5.0, left: 5),
+                            padding: const EdgeInsets.only(right: 5.0, left: 5),
                             child: Text(
                               "اسمك الظاهر للآخرين داخل التطبيق",
                               style: TextStyle(
@@ -119,8 +119,9 @@ class FeedbackScreen extends StatelessWidget {
                             mycontroller: commentController,
                             color: colorScheme.primary,
                             valid: (value) {
-                              if (value!.isEmpty)
+                              if (value!.isEmpty) {
                                 return "يجب عليك إدخال التعليق";
+                              }
 
                               return null;
                             },
