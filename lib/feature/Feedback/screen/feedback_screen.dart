@@ -73,7 +73,10 @@ class FeedbackScreen extends StatelessWidget {
                             padding: EdgeInsets.only(right: 5.0, left: 5),
                             child: Text(
                               "ملاحظاتكم تهمّنا، نرجو مشاركتها بشفافية لتساعدنا في تحسين جودة خدماتنا وتلبيتها بشكل أفضل.",
-                              style: TextStyle(fontSize: 14),
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                           const SizedBox(height: 15),
@@ -82,7 +85,7 @@ class FeedbackScreen extends StatelessWidget {
                             child: Text(
                               "اسمك الظاهر للآخرين داخل التطبيق",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w500,
                                   color: colorScheme.primary,
                                   fontSize: 14),
                             ),
@@ -106,7 +109,7 @@ class FeedbackScreen extends StatelessWidget {
                             child: Text(
                               "التعليق",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w500,
                                   color: colorScheme.primary,
                                   fontSize: 14),
                             ),
