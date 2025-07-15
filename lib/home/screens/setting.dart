@@ -19,7 +19,7 @@ class Setting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = context.isDarkMode;
-    final theme = context.theme;
+    //final theme = context.theme;
     final colorScheme = context.colorScheme;
     // final unReadPoits = sharedPreferences.getString("unreadPoints");
 
