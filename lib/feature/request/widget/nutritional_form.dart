@@ -4,23 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:charity_app/auth/widgets/auth_button.dart';
 import 'package:charity_app/feature/request/widget/custom_textField.dart';
 
-class FormPageTwo extends StatefulWidget {
+class NutritionalForm extends StatefulWidget {
   final void Function(Map<String, dynamic> formData) onSubmit;
   final VoidCallback onBack;
-  final ColorScheme colorScheme;
 
-  const FormPageTwo({
+  const NutritionalForm({
     super.key,
     required this.onSubmit,
     required this.onBack,
-    required this.colorScheme,
   });
 
   @override
-  State<FormPageTwo> createState() => _FormPageTwoState();
+  State<NutritionalForm> createState() => _NutritionalFormState();
 }
 
-class _FormPageTwoState extends State<FormPageTwo> {
+class _NutritionalFormState extends State<NutritionalForm> {
   final formKey = GlobalKey<FormState>();
 
   final Map<String, dynamic> options = {
@@ -44,7 +42,7 @@ class _FormPageTwoState extends State<FormPageTwo> {
   Widget build(BuildContext context) {
     final colorScheme = context.colorScheme;
     return Scaffold(
-      backgroundColor: widget.colorScheme.surface,
+      backgroundColor: colorScheme.surface,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),

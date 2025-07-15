@@ -1,7 +1,7 @@
 import 'package:charity_app/constants/const_appBar.dart';
 import 'package:charity_app/core/extensions/context_extensions.dart';
 import 'package:charity_app/feature/request/widget/form_page0ne.dart';
-import 'package:charity_app/feature/request/widget/form_pageTwo.dart';
+import 'package:charity_app/feature/request/widget/nutritional_form.dart';
 import 'package:flutter/material.dart';
 
 class NutritionalScreen extends StatefulWidget {
@@ -53,12 +53,10 @@ class _NutritionalScreenState extends State<NutritionalScreen> {
           children: [
             FormPageOne(
               onNext: goToNextPage,
-              colorScheme: colorScheme,
             ),
-            FormPageTwo(
+            NutritionalForm(
               onSubmit: submitForm,
               onBack: goBack,
-              colorScheme: colorScheme,
             ),
           ],
         ),

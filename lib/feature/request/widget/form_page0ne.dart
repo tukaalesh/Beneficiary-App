@@ -5,13 +5,8 @@ import 'package:charity_app/feature/request/widget/custom_textField.dart';
 
 class FormPageOne extends StatefulWidget {
   final void Function(Map<String, String> formData) onNext;
-  final ColorScheme colorScheme;
 
-  const FormPageOne({
-    super.key,
-    required this.onNext,
-    required this.colorScheme,
-  });
+  const FormPageOne({ super.key, required this.onNext});
 
   @override
   State<FormPageOne> createState() => _FormPageOneState();
@@ -21,7 +16,7 @@ class _FormPageOneState extends State<FormPageOne> {
   final formKey = GlobalKey<FormState>();
 
   
-  final Map<String, String> _formData = {};
+  final Map<String, String> formData = {};
 
   bool isOnlyDigits(String str) {
     final regExp = RegExp(r'^\d+$');
@@ -38,7 +33,7 @@ class _FormPageOneState extends State<FormPageOne> {
   void handleNext() {
     if (formKey.currentState?.validate() ?? false) {
       formKey.currentState!.save();
-      widget.onNext(_formData); 
+      widget.onNext(formData); 
     }
   }
 
@@ -46,7 +41,7 @@ class _FormPageOneState extends State<FormPageOne> {
   Widget build(BuildContext context) {
     final colorScheme = context.colorScheme;
     return Scaffold(
-      backgroundColor: widget.colorScheme.surface,
+      backgroundColor: colorScheme.surface,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -68,7 +63,7 @@ class _FormPageOneState extends State<FormPageOne> {
                     if (!isOnlyLetters(value)) return 'يرجى إدخال حروف فقط';
                     return null;
                   },
-                  onSaved: (value) => _formData['fullName'] = value ?? '',
+                  onSaved: (value) => formData['fullName'] = value ?? '',
                 ),
                 const SizedBox(height: 10),
 
@@ -80,7 +75,7 @@ class _FormPageOneState extends State<FormPageOne> {
                     if (!isOnlyDigits(value)) return 'يرجى إدخال أرقام فقط';
                     return null;
                   },
-                  onSaved: (value) => _formData['age'] = value ?? '',
+                  onSaved: (value) => formData['age'] = value ?? '',
                 ),
                 const SizedBox(height: 10),
 
@@ -94,7 +89,7 @@ class _FormPageOneState extends State<FormPageOne> {
     if (value.length != 10) return 'رقم الهاتف يجب أن يتألف من 10 أرقام';
     return null;
   },
-  onSaved: (value) => _formData['phone'] = value ?? '',
+  onSaved: (value) => formData['phone'] = value ?? '',
 ),
 
                 const SizedBox(height: 10),
@@ -107,7 +102,7 @@ class _FormPageOneState extends State<FormPageOne> {
                     if (!isOnlyDigits(value)) return 'يرجى إدخال أرقام ';
                     return null;
                   },
-                  onSaved: (value) => _formData['childrenCount'] = value ?? '',
+                  onSaved: (value) => formData['childrenCount'] = value ?? '',
                 ),
                 const SizedBox(height: 10),
 
@@ -119,7 +114,7 @@ class _FormPageOneState extends State<FormPageOne> {
                     if (countWords(value) < 10) return 'الرجاء كتابة 10 كلمة على الأقل';
                     return null;
                   },
-                  onSaved: (value) => _formData['childrenDetails'] = value ?? '',
+                  onSaved: (value) => formData['childrenDetails'] = value ?? '',
                 ),
                 const SizedBox(height: 10),
 
@@ -130,7 +125,7 @@ class _FormPageOneState extends State<FormPageOne> {
                     if (value == null || value.isEmpty) return 'يرجى إدخال عنوان السكن بالتفصيل';
                     return null;
                   },
-                  onSaved: (value) => _formData['address'] = value ?? '',
+                  onSaved: (value) => formData['address'] = value ?? '',
                 ),
                 const SizedBox(height: 10),
 
@@ -143,7 +138,7 @@ class _FormPageOneState extends State<FormPageOne> {
                     if (value.startsWith('0')) return 'لا يمكن أن يبدأ الدخل بـ 0';
                     return null;
                   },
-                  onSaved: (value) => _formData['monthlyIncome'] = value ?? '',
+                  onSaved: (value) => formData['monthlyIncome'] = value ?? '',
                 ),
                 const SizedBox(height: 10),
 
@@ -155,7 +150,7 @@ class _FormPageOneState extends State<FormPageOne> {
                     if (!isOnlyLetters(value)) return 'يرجى إدخال حروف فقط';
                     return null;
                   },
-                  onSaved: (value) => _formData['currentJob'] = value ?? '',
+                  onSaved: (value) => formData['currentJob'] = value ?? '',
                 ),
 
                 const SizedBox(height: 20),
