@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:charity_app/home/screens/feedback_screen.dart';
+import 'package:charity_app/feature/Feedback/screen/feedback_screen.dart';
 import 'package:charity_app/home/screens/home_screen.dart';
 import 'package:charity_app/home/screens/request_help.dart';
 import 'package:charity_app/home/screens/request_status_screen.dart';
