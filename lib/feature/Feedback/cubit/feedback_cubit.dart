@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, avoid_print, non_constant_identifier_names
+
 import 'package:charity_app/feature/Feedback/cubit/feedback_states.dart';
 import 'package:charity_app/helper/api.dart';
 import 'package:charity_app/main.dart';

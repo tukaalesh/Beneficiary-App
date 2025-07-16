@@ -69,6 +69,13 @@ class FeedbackScreen extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 20, right: 20),
                       child: ListView(
                         children: [
+                          Image.asset(
+                            "assets/images/chat.png",
+                            height: 100,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
                           const Padding(
                             padding: EdgeInsets.only(right: 5.0, left: 5),
                             child: Text(
@@ -86,7 +93,7 @@ class FeedbackScreen extends StatelessWidget {
                               "اسمك الظاهر للآخرين داخل التطبيق",
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  color: colorScheme.primary,
+                                  color: colorScheme.secondary,
                                   fontSize: 14),
                             ),
                           ),
@@ -110,7 +117,7 @@ class FeedbackScreen extends StatelessWidget {
                               "التعليق",
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  color: colorScheme.primary,
+                                  color: colorScheme.secondary,
                                   fontSize: 14),
                             ),
                           ),
@@ -120,10 +127,11 @@ class FeedbackScreen extends StatelessWidget {
                             icon: const Icon(null),
                             inputType: TextInputType.name,
                             mycontroller: commentController,
-                            color: colorScheme.primary,
+                            color: colorScheme.secondary,
                             valid: (value) {
-                              if (value!.isEmpty)
+                              if (value!.isEmpty) {
                                 return "يجب عليك إدخال التعليق";
+                              }
 
                               return null;
                             },
@@ -139,7 +147,7 @@ class FeedbackScreen extends StatelessWidget {
                                         message: commentController);
                               }
                             },
-                            color: colorScheme.primary,
+                            color: colorScheme.secondary,
                           ),
                         ],
                       ),

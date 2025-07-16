@@ -18,7 +18,7 @@ class WelcomeScreen extends StatelessWidget {
             width: double.infinity,
             height: size.height * 0.55,
             child: Image.asset(
-              'assets/images/welcome.jpg',
+              'assets/images/welcome_test.jpg',
               fit: BoxFit.cover,
             ),
           ),
@@ -43,7 +43,7 @@ class WelcomeScreen extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            'نضع أيدينا بأيديكم لمساعدة كل صاحب حاجة',
+                            "نحن هنا لدعم كل من يحتاج، لنمد يد العون لكل صاحب حاجة",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 18,

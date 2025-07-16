@@ -1,6 +1,5 @@
 import 'package:charity_app/auth/cubits/auth_cubits/auth_cubits.dart';
 import 'package:charity_app/auth/cubits/splash_cubits/splash_cubits.dart';
-import 'package:charity_app/auth/cubits/user_cubit/user_cubit.dart';
 import 'package:charity_app/auth/screens/login_screen.dart';
 import 'package:charity_app/auth/screens/signup_screen.dart';
 import 'package:charity_app/auth/screens/splash_screen.dart';
@@ -10,7 +9,6 @@ import 'package:charity_app/feature/Feedback/cubit/feedback_cubit.dart';
 import 'package:charity_app/feature/notification/screen/notification_screen.dart';
 import 'package:charity_app/home/cubits/navigation/navigation_cubit.dart';
 import 'package:charity_app/home/cubits/themeCubit/theme_cubit.dart';
-import 'package:charity_app/home/screens/home_page.dart';
 import 'package:charity_app/home/screens/navigation_main.dart';
 import 'package:charity_app/home/screens/setting.dart';
 import 'package:flutter/material.dart';
@@ -18,15 +16,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 late SharedPreferences sharedPreferences;
-final token = sharedPreferences.get("token");
+// final token = sharedPreferences.get("token");
 
 // String? token;
 //
 //مشان ونحنا عم نعدل بين ايميوليتر و ويندوز
 
-// const String localhost = "10.0.2.2:8000";
+const String localhost = "10.0.2.2:8000";
 
-const String localhost = "127.0.0.1:8000";
+// const String localhost = "127.0.0.1:8000";
 // const String localhost = " 192.168.59.180:8000";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,7 +47,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => AuthCubits()),
         BlocProvider(create: (context) => SplashCubit()),
         BlocProvider(create: (context) => ThemeCubits(isDarkMode)),
-        BlocProvider(create: (context) => UserCubit()),
+        // BlocProvider(create: (context) => UserCubit()),
         BlocProvider(create: (context) => NavigationCubit()),
         BlocProvider(create: (context) => FeedbackCubit())
       ],

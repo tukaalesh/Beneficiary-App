@@ -9,19 +9,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 class NavigationCubit extends Cubit<int> {
-  NavigationCubit() : super(3); //هون عم نبلش من الهوم
+  NavigationCubit() : super(4); //هون عم نبلش من الهوم
 
   final List<Widget> pages = [
-    // const ZakahPage(), // i0
-    // WalletScreen(), //i1
-    // GiftScreen(), //i2
-    // const OpportunitiesScreen(), //i3
-    //  const HomePage(), //i4
+    
     Setting(),
     FeedbackScreen(),
     RequestStatusScreen(),
     RequestHelp(),
-
     HomeScreen()
   ];
 
