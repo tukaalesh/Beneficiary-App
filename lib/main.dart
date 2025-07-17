@@ -6,6 +6,9 @@ import 'package:charity_app/auth/screens/splash_screen.dart';
 import 'package:charity_app/auth/screens/welcome_screen.dart';
 import 'package:charity_app/core/theme/app_themes.dart';
 import 'package:charity_app/feature/Feedback/cubit/feedback_cubit.dart';
+import 'package:charity_app/feature/HealthSupport/cubit/health_form_cubit.dart';
+import 'package:charity_app/feature/HealthSupport/screen/health_form_screen.dart';
+import 'package:charity_app/feature/HousingSupport/cubit/housing_form_cubit.dart';
 import 'package:charity_app/feature/notification/screen/notification_screen.dart';
 import 'package:charity_app/home/cubits/navigation/navigation_cubit.dart';
 import 'package:charity_app/home/cubits/themeCubit/theme_cubit.dart';
@@ -22,9 +25,9 @@ late SharedPreferences sharedPreferences;
 //
 //مشان ونحنا عم نعدل بين ايميوليتر و ويندوز
 
-const String localhost = "10.0.2.2:8000";
+// const String localhost = "10.0.2.2:8000";
 
-// const String localhost = "127.0.0.1:8000";
+const String localhost = "127.0.0.1:8000";
 // const String localhost = " 192.168.59.180:8000";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,7 +52,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ThemeCubits(isDarkMode)),
         // BlocProvider(create: (context) => UserCubit()),
         BlocProvider(create: (context) => NavigationCubit()),
-        BlocProvider(create: (context) => FeedbackCubit())
+        BlocProvider(create: (context) => FeedbackCubit()),
+
+        BlocProvider(create: (context) => HousingFormCubit()),
+        BlocProvider(create: (context) => HealthFormCubit())
       ],
       child: BlocBuilder<ThemeCubits, bool>(
         builder: (context, isDarkMode) {
@@ -77,6 +83,7 @@ class MyApp extends StatelessWidget {
               "Welcom": (context) => const WelcomeScreen(),
               "Setting": (context) => const Setting(),
               "Notification": (context) => const NotificationScreen(),
+              "HealthFormScreen": (context) => const HealthFormScreen(),
             },
           );
         },

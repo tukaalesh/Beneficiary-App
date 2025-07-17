@@ -1,5 +1,5 @@
-import 'package:charity_app/feature/HealthSupport/screen/health_support_screen.dart';
-import 'package:charity_app/feature/HousingSupport/screen/housing_supportscreen.dart';
+import 'package:charity_app/feature/HealthSupport/screen/health_form_screen.dart';
+import 'package:charity_app/feature/HousingSupport/screen/housing_form_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeSection2 extends StatelessWidget {
@@ -13,22 +13,22 @@ class HomeSection2 extends StatelessWidget {
       {
         "title": "دعم صحي",
         "icon": Icons.medical_services,
-        "page": () => const HealthSupportScreen(),
+        "page": () => const HealthFormScreen(),
       },
       {
         "title": "دعم غذائي",
         "icon": Icons.fastfood,
-        "page": () => const HealthSupportScreen(),
+        "page": () => const HealthFormScreen(),
       },
       {
         "title": "دعم سكني",
         "icon": Icons.cottage,
-        "page": () => const HousingSupportScreen(),
+        "page": () => const HousingFormScreen(),
       },
       {
         "title": "دعم تعليمي",
         "icon": Icons.menu_book,
-        "page": () => const HousingSupportScreen(),
+        "page": () => const HousingFormScreen(),
       },
     ];
 
@@ -47,7 +47,7 @@ class HomeSection2 extends StatelessWidget {
           const SizedBox(height: 16),
           SizedBox(
             height: 100,
-            //بتحط فواصل واحسن من بيلدر 
+            //بتحط فواصل واحسن من بيلدر
             child: ListView.separated(
               //مشان السكرول
               scrollDirection: Axis.horizontal,

@@ -27,6 +27,12 @@ class ConstAppBar extends StatelessWidget implements PreferredSizeWidget {
           color: colorScheme.onSurface,
         ),
       ),
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      ),
       elevation: 0,
     );
   }
