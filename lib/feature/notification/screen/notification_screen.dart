@@ -35,11 +35,15 @@ class NotificationScreen extends StatelessWidget {
               }
 
               if (state is NotificationEmpty) {
-                return Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    context.read<NotificationCubit>().fetchNotifications();
+                  },
+                  child: ListView(
+                    physics: const AlwaysScrollableScrollPhysics(),
                     children: [
-                      emtpyImage,
+                      const SizedBox(height: 100),
+                      Center(child: emtpyImage),
                       const SizedBox(height: 10),
                       const Padding(
                         padding: EdgeInsets.all(8.0),
@@ -47,7 +51,9 @@ class NotificationScreen extends StatelessWidget {
                           "لا توجد إشعارات حالياً.\nسنعرض لك هنا أي تحديثات أو تنبيهات فور توفرها",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 13, fontWeight: FontWeight.bold),
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],
@@ -58,17 +64,22 @@ class NotificationScreen extends StatelessWidget {
               if (state is NotificationSuccess) {
                 final notifications = state.notifications;
 
-                return ListView.builder(
-                  padding: const EdgeInsets.all(16),
-                  itemCount: notifications.length,
-                  itemBuilder: (context, index) {
-                    final notification = notifications[index];
-                    return NotificationCard(
-                      title: notification.title,
-                      message: notification.message,
-                      time: notification.time,
-                    );
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    context.read<NotificationCubit>().fetchNotifications();
                   },
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(16),
+                    itemCount: notifications.length,
+                    itemBuilder: (context, index) {
+                      final notification = notifications[index];
+                      return NotificationCard(
+                        title: notification.title,
+                        message: notification.message,
+                        time: notification.time,
+                      );
+                    },
+                  ),
                 );
               }
 

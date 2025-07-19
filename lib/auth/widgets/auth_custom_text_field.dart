@@ -74,13 +74,11 @@ class _CustomtextfieldState extends State<AuthCustomTextField> {
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
-            borderSide:
-                const BorderSide(color: Color.fromARGB(255, 255, 105, 95)),
+            borderSide: const BorderSide(color: Colors.red),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
-            borderSide:
-                const BorderSide(color: Color.fromARGB(255, 255, 105, 95)),
+            borderSide: const BorderSide(color: Colors.red),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(7),

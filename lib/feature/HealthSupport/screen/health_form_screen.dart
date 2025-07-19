@@ -8,6 +8,8 @@ import 'package:charity_app/core/extensions/context_extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import 'package:charity_app/feature/HealthSupport/widget/first_screen.dart'; 
+
 class HealthFormScreen extends StatefulWidget {
   const HealthFormScreen({super.key});
 
@@ -30,6 +32,11 @@ class _HealthFormScreenState extends State<HealthFormScreen> {
   final TextEditingController monthlyIncomeController = TextEditingController();
   final TextEditingController currentJobController = TextEditingController();
 
+  Gender? _selectedGender;
+  MaritalStatus? _selectedMaritalStatus;
+  String? _selectedGovernorate;
+  String? _selectedIncomeSource;
+
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController expectedCostController = TextEditingController();
   String? selectedRiskOption;
@@ -37,15 +44,18 @@ class _HealthFormScreenState extends State<HealthFormScreen> {
   int currentPage = 0;
 
   void nextPage() {
-    if (_formKey.currentState != null && _formKey.currentState!.validate()) {
-      _pageController.nextPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-      setState(() {
-        currentPage++;
-      });
+  
+    if (currentPage == 0) {
+     
     }
+
+    _pageController.nextPage(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+    setState(() {
+      currentPage++;
+    });
   }
 
   void previousPage() {
@@ -59,21 +69,38 @@ class _HealthFormScreenState extends State<HealthFormScreen> {
   }
 
   void submitForm() {
-    if (_formKey.currentState != null && _formKey.currentState!.validate()) {
-      
+   
+    if (_formKey.currentState != null &&
+        _formKey.currentState!.validate() &&
+        _selectedGender != null &&
+        _selectedMaritalStatus != null &&
+        _selectedGovernorate != null &&
+        _selectedIncomeSource != null) {
       final cubit = context.read<HealthFormCubit>();
       cubit.sendHealthCubit(
-          fullNameController: fullNameController,
-          ageController: ageController,
-          phoneNumberController: phoneNumberController,
-          numberOfChildrenController: numberOfChildrenController,
-          childrenDetailsController: childrenDetailsController,
-          addressController: addressController,
-          monthlyIncomeController: monthlyIncomeController,
-          currentJobController: currentJobController,
-          descriptionController: descriptionController,
-          expectedCostController: expectedCostController,
-          selectedRiskOption: selectedRiskOption);
+        fullNameController: fullNameController,
+        ageController: ageController,
+        phoneNumberController: phoneNumberController,
+        numberOfChildrenController: numberOfChildrenController,
+        childrenDetailsController: childrenDetailsController,
+        addressController: addressController,
+        monthlyIncomeController: monthlyIncomeController,
+        currentJobController: currentJobController,
+        descriptionController: descriptionController,
+        expectedCostController: expectedCostController,
+        selectedRiskOption: selectedRiskOption,
+        // gender: _selectedGender,
+        // maritalStatus: _selectedMaritalStatus,
+        // governorate: _selectedGovernorate,
+        // incomeSource: _selectedIncomeSource,
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('الرجاء تعبئة جميع الحقول المطلوبة واختيار الخيارات.'),
+          duration: Duration(seconds: 3),
+        ),
+      );
     }
   }
 
@@ -134,8 +161,9 @@ class _HealthFormScreenState extends State<HealthFormScreen> {
                 appBar: const ConstAppBar(title: "تقديم طلب مساعدة صحي"),
                 backgroundColor: context.colorScheme.surface,
                 body: Form(
-                  key: _formKey,
-                  child: PageView(
+                  key:
+                      _formKey, 
+                                        child: PageView(
                     controller: _pageController,
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
@@ -148,8 +176,33 @@ class _HealthFormScreenState extends State<HealthFormScreen> {
                         addressController: addressController,
                         monthlyIncomeController: monthlyIncomeController,
                         currentJobController: currentJobController,
-                        onNext: nextPage,
+                        onNext:
+                            nextPage, 
                         colorScheme: colorScheme,
+                        onGenderChanged: (gender) {
+                          setState(() {
+                            _selectedGender = gender;
+                          });
+                        },
+                        onMaritalStatusChanged: (status) {
+                          setState(() {
+                            _selectedMaritalStatus = status;
+                          });
+                        },
+                        onGovernorateChanged: (governorate) {
+                          setState(() {
+                            _selectedGovernorate = governorate;
+                          });
+                        },
+                        onIncomeSourceChanged: (source) {
+                          setState(() {
+                            _selectedIncomeSource = source;
+                          });
+                        },
+                        initialGender: _selectedGender,
+                        initialMaritalStatus: _selectedMaritalStatus,
+                        initialGovernorate: _selectedGovernorate,
+                        initialIncomeSource: _selectedIncomeSource,
                       ),
                       SecondHealthScreen(
                         descriptionController: descriptionController,
@@ -161,7 +214,8 @@ class _HealthFormScreenState extends State<HealthFormScreen> {
                           });
                         },
                         onPrevious: previousPage,
-                        onSubmit: submitForm,
+                        onSubmit:
+                            submitForm, 
                         colorScheme: colorScheme,
                       ),
                     ],

@@ -10,6 +10,7 @@ import 'package:charity_app/feature/HealthSupport/cubit/health_form_cubit.dart';
 import 'package:charity_app/feature/HealthSupport/screen/health_form_screen.dart';
 import 'package:charity_app/feature/HousingSupport/cubit/housing_form_cubit.dart';
 import 'package:charity_app/feature/notification/screen/notification_screen.dart';
+import 'package:charity_app/home/cubits/count_notification_cubit/count-notification_cubit.dart';
 import 'package:charity_app/home/cubits/navigation/navigation_cubit.dart';
 import 'package:charity_app/home/cubits/themeCubit/theme_cubit.dart';
 import 'package:charity_app/home/screens/navigation_main.dart';
@@ -55,7 +56,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => FeedbackCubit()),
 
         BlocProvider(create: (context) => HousingFormCubit()),
-        BlocProvider(create: (context) => HealthFormCubit())
+        BlocProvider(create: (context) => HealthFormCubit()),
+        BlocProvider<CountNotificationCubit>(
+          create: (_) => CountNotificationCubit()..fetchUnreadNotifications(),
+        )
       ],
       child: BlocBuilder<ThemeCubits, bool>(
         builder: (context, isDarkMode) {
