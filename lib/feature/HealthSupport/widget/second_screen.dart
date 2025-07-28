@@ -31,9 +31,9 @@ class SecondHealthScreen extends StatefulWidget {
 
 class _SecondScreenState extends State<SecondHealthScreen> {
   final List<String> _optionsList = [
-    "إسعافي (يتطلب تدخل فوري)",
-    "مستعجل (يتطلب تدخل سريع)",
-    "روتيني (غير مستعجل)",
+    "حرج",
+    "متوسط",
+    "منخفض",
   ];
 
   @override

@@ -6,8 +6,19 @@ class HealthFormLoading extends HealthFormState {}
 
 class HealthFormSuccess extends HealthFormState {}
 
-class HealthFormFailure extends HealthFormState {}
+class HealthFormFailure extends HealthFormState {
+  final String errorMessage;
+  HealthFormFailure({required this.errorMessage});
 
-class HealthFormAlreadySubmitted extends HealthFormState {}
+  @override
+  String toString() => 'HealthFormFailure(errorMessage: $errorMessage)';
+}
 
-class HealthFormPhoneNumberAlreadyUsed extends HealthFormState {}
+class HealthFormAlreadySubmitted extends HealthFormState {
+  final double? daysRemaining;
+  HealthFormAlreadySubmitted({this.daysRemaining});
+
+  @override
+  String toString() =>
+      'HealthFormAlreadySubmitted(daysRemaining: $daysRemaining)';
+}

@@ -8,8 +8,6 @@ import 'package:charity_app/core/extensions/context_extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import 'package:charity_app/feature/HealthSupport/widget/first_screen.dart'; 
-
 class HealthFormScreen extends StatefulWidget {
   const HealthFormScreen({super.key});
 
@@ -18,7 +16,7 @@ class HealthFormScreen extends StatefulWidget {
 }
 
 class _HealthFormScreenState extends State<HealthFormScreen> {
-  final _formKey = GlobalKey<FormState>();
+  final _firstPageFormKey = GlobalKey<FormState>();
   final PageController _pageController = PageController();
 
   final TextEditingController fullNameController = TextEditingController();
@@ -32,8 +30,8 @@ class _HealthFormScreenState extends State<HealthFormScreen> {
   final TextEditingController monthlyIncomeController = TextEditingController();
   final TextEditingController currentJobController = TextEditingController();
 
-  Gender? _selectedGender;
-  MaritalStatus? _selectedMaritalStatus;
+  String? _selectedGender;
+  String? _selectedMaritalStatus;
   String? _selectedGovernorate;
   String? _selectedIncomeSource;
 
@@ -44,18 +42,46 @@ class _HealthFormScreenState extends State<HealthFormScreen> {
   int currentPage = 0;
 
   void nextPage() {
-  
     if (currentPage == 0) {
-     
-    }
+      if (_firstPageFormKey.currentState != null &&
+          _firstPageFormKey.currentState!.validate()) {
+        if (_selectedGender == null) {
+          _showSnackBar('الرجاء اختيار الجنس.');
+          return;
+        }
+        if (_selectedMaritalStatus == null) {
+          _showSnackBar('الرجاء اختيار الحالة الاجتماعية.');
+          return;
+        }
+        if (_selectedGovernorate == null || _selectedGovernorate!.isEmpty) {
+          _showSnackBar('الرجاء اختيار المحافظة.');
+          return;
+        }
+        if (_selectedIncomeSource == null) {
+          _showSnackBar('الرجاء اختيار مصدر الدخل الشهري.');
+          return;
+        }
 
-    _pageController.nextPage(
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
-    setState(() {
-      currentPage++;
-    });
+        _pageController.nextPage(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+        setState(() {
+          currentPage++;
+        });
+      } else {
+        _showSnackBar('الرجاء تعبئة جميع الحقول المطلوبة في هذه الصفحة.');
+      }
+    } else if (currentPage == 1) {
+      if (descriptionController.text.isEmpty ||
+          expectedCostController.text.isEmpty ||
+          selectedRiskOption == null) {
+        _showSnackBar(
+            'الرجاء تعبئة جميع الحقول المطلوبة واختيار الخيارات في هذه الصفحة.');
+        return;
+      }
+      submitForm();
+    }
   }
 
   void previousPage() {
@@ -68,39 +94,44 @@ class _HealthFormScreenState extends State<HealthFormScreen> {
     });
   }
 
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
+
   void submitForm() {
-   
-    if (_formKey.currentState != null &&
-        _formKey.currentState!.validate() &&
+    if (currentPage == 1 &&
+        descriptionController.text.isNotEmpty &&
+        expectedCostController.text.isNotEmpty &&
+        selectedRiskOption != null &&
         _selectedGender != null &&
         _selectedMaritalStatus != null &&
         _selectedGovernorate != null &&
         _selectedIncomeSource != null) {
       final cubit = context.read<HealthFormCubit>();
       cubit.sendHealthCubit(
-        fullNameController: fullNameController,
-        ageController: ageController,
-        phoneNumberController: phoneNumberController,
-        numberOfChildrenController: numberOfChildrenController,
-        childrenDetailsController: childrenDetailsController,
-        addressController: addressController,
-        monthlyIncomeController: monthlyIncomeController,
-        currentJobController: currentJobController,
-        descriptionController: descriptionController,
-        expectedCostController: expectedCostController,
-        selectedRiskOption: selectedRiskOption,
-        // gender: _selectedGender,
-        // maritalStatus: _selectedMaritalStatus,
-        // governorate: _selectedGovernorate,
-        // incomeSource: _selectedIncomeSource,
+        fullNameController: fullNameController.text,
+        ageController: ageController.text,
+        phoneNumberController: phoneNumberController.text,
+        numberOfChildrenController: numberOfChildrenController.text,
+        childrenDetailsController: childrenDetailsController.text,
+        addressController: addressController.text,
+        monthlyIncomeController: monthlyIncomeController.text,
+        currentJobController: currentJobController.text,
+        descriptionController: descriptionController.text,
+        expectedCostController: expectedCostController.text,
+        selectedRiskOption: selectedRiskOption!,
+        gender: _selectedGender!,
+        maritalStatus: _selectedMaritalStatus!,
+        governorate: _selectedGovernorate!,
+        incomeSource: _selectedIncomeSource!,
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('الرجاء تعبئة جميع الحقول المطلوبة واختيار الخيارات.'),
-          duration: Duration(seconds: 3),
-        ),
-      );
+      _showSnackBar('الرجاء تعبئة جميع الحقول المطلوبة واختيار الخيارات.');
     }
   }
 
@@ -127,29 +158,20 @@ class _HealthFormScreenState extends State<HealthFormScreen> {
     return BlocConsumer<HealthFormCubit, HealthFormState>(
       listener: (context, state) {
         if (state is HealthFormSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("تم إرسال طلب المساعدة بنجاح")),
-          );
+          _showSnackBar("تم إرسال طلب المساعدة بنجاح");
           Navigator.pop(context);
         } else if (state is HealthFormAlreadySubmitted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                duration: Duration(seconds: 4),
-                content: Text(
-                    "لقد قمت بإرسال طلب المساعدة مسبقًا ولا يمكنك التسجيل مرة أخرى.")),
-          );
-        } else if (state is HealthFormPhoneNumberAlreadyUsed) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                duration: Duration(seconds: 4),
-                content: Text("رقم الهاتف مستخدم بالفعل من قبل مستخدم آخر")),
-          );
+          String message =
+              "نتفهم حاجتكم، ولكن لا يمكن تقديم طلب مساعدة صحية جديد إلا بعد مرور ";
+          if (state.daysRemaining != null) {
+            message += "${state.daysRemaining!.ceil()} يومًا ";
+          } else {
+            message += "فترة معينة ";
+          }
+          message += "على طلبكم السابق.";
+          _showSnackBar(message);
         } else if (state is HealthFormFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                duration: Duration(seconds: 3),
-                content: Text("حصل خطأ يُرجى المحاولة لاحقاً !")),
-          );
+          _showSnackBar(state.errorMessage);
         }
       },
       builder: (context, state) {
@@ -160,66 +182,60 @@ class _HealthFormScreenState extends State<HealthFormScreen> {
               Scaffold(
                 appBar: const ConstAppBar(title: "تقديم طلب مساعدة صحي"),
                 backgroundColor: context.colorScheme.surface,
-                body: Form(
-                  key:
-                      _formKey, 
-                                        child: PageView(
-                    controller: _pageController,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      FirstHealthScreen(
-                        fullNameController: fullNameController,
-                        ageController: ageController,
-                        phoneNumberController: phoneNumberController,
-                        numberOfChildrenController: numberOfChildrenController,
-                        childrenDetailsController: childrenDetailsController,
-                        addressController: addressController,
-                        monthlyIncomeController: monthlyIncomeController,
-                        currentJobController: currentJobController,
-                        onNext:
-                            nextPage, 
-                        colorScheme: colorScheme,
-                        onGenderChanged: (gender) {
-                          setState(() {
-                            _selectedGender = gender;
-                          });
-                        },
-                        onMaritalStatusChanged: (status) {
-                          setState(() {
-                            _selectedMaritalStatus = status;
-                          });
-                        },
-                        onGovernorateChanged: (governorate) {
-                          setState(() {
-                            _selectedGovernorate = governorate;
-                          });
-                        },
-                        onIncomeSourceChanged: (source) {
-                          setState(() {
-                            _selectedIncomeSource = source;
-                          });
-                        },
-                        initialGender: _selectedGender,
-                        initialMaritalStatus: _selectedMaritalStatus,
-                        initialGovernorate: _selectedGovernorate,
-                        initialIncomeSource: _selectedIncomeSource,
-                      ),
-                      SecondHealthScreen(
-                        descriptionController: descriptionController,
-                        expectedCostController: expectedCostController,
-                        selectedOption: selectedRiskOption,
-                        onOptionChanged: (newValue) {
-                          setState(() {
-                            selectedRiskOption = newValue;
-                          });
-                        },
-                        onPrevious: previousPage,
-                        onSubmit:
-                            submitForm, 
-                        colorScheme: colorScheme,
-                      ),
-                    ],
-                  ),
+                body: PageView(
+                  controller: _pageController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    FirstHealthScreen(
+                      formKey: _firstPageFormKey,
+                      fullNameController: fullNameController,
+                      ageController: ageController,
+                      phoneNumberController: phoneNumberController,
+                      numberOfChildrenController: numberOfChildrenController,
+                      childrenDetailsController: childrenDetailsController,
+                      addressController: addressController,
+                      monthlyIncomeController: monthlyIncomeController,
+                      currentJobController: currentJobController,
+                      onNext: nextPage,
+                      initialGender: _selectedGender,
+                      onGenderChanged: (gender) {
+                        setState(() {
+                          _selectedGender = gender;
+                        });
+                      },
+                      initialMaritalStatus: _selectedMaritalStatus,
+                      onMaritalStatusChanged: (status) {
+                        setState(() {
+                          _selectedMaritalStatus = status;
+                        });
+                      },
+                      initialGovernorate: _selectedGovernorate,
+                      onGovernorateChanged: (governorate) {
+                        setState(() {
+                          _selectedGovernorate = governorate;
+                        });
+                      },
+                      initialIncomeSource: _selectedIncomeSource,
+                      onIncomeSourceChanged: (source) {
+                        setState(() {
+                          _selectedIncomeSource = source;
+                        });
+                      },
+                    ),
+                    SecondHealthScreen(
+                      descriptionController: descriptionController,
+                      expectedCostController: expectedCostController,
+                      selectedOption: selectedRiskOption,
+                      onOptionChanged: (newValue) {
+                        setState(() {
+                          selectedRiskOption = newValue;
+                        });
+                      },
+                      onPrevious: previousPage,
+                      onSubmit: submitForm,
+                      colorScheme: colorScheme,
+                    ),
+                  ],
                 ),
               ),
               if (state is HealthFormLoading)

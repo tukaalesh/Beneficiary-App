@@ -42,7 +42,7 @@ class NotificationScreen extends StatelessWidget {
                   child: ListView(
                     physics: const AlwaysScrollableScrollPhysics(),
                     children: [
-                      const SizedBox(height: 100),
+                      const SizedBox(height: 170),
                       Center(child: emtpyImage),
                       const SizedBox(height: 10),
                       const Padding(

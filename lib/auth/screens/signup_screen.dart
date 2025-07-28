@@ -117,7 +117,7 @@ class SignUpScreen extends StatelessWidget {
                             const SizedBox(height: 12),
                             AuthCustomTextField(
                                 color: colorScheme.secondary,
-                                hint: "رقم المُهدى إليه",
+                                hint: "رقم الهاتف",
                                 inputType: TextInputType.number,
                                 mycontroller: phoneController,
                                 icon: const Icon(Icons.phone_enabled_rounded),
@@ -191,8 +191,7 @@ class SignUpScreen extends StatelessWidget {
                                               passwordConfirmationController,
                                           passwordController:
                                               passwordController,
-                                          phoneController:
-                                              phoneController);
+                                          phoneController: phoneController);
                                 }
                               },
                               color: colorScheme.secondary,

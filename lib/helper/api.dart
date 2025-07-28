@@ -60,6 +60,35 @@ class Api {
     }
   }
 
+//هاد حصرا للاستبيان
+  Future<dynamic> postt({
+    required String url,
+    required Map<String, dynamic>
+        body, // Or Map<String, String> if it's form-urlencoded
+    required String token,
+  }) async {
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    http.Response response = await http.post(
+      Uri.parse(url),
+      headers: headers,
+      body: jsonEncode(body), // Ensure the request body is JSON encoded
+    );
+
+    if (response.statusCode == 200) {
+      // Success case
+      return jsonDecode(response.body);
+    } else {
+      // This is where the problematic exception is being thrown
+      // print('API Error Response Body: ${response.body}'); // Add this for more debugging
+      throw Exception(
+          'ther is a problem ${response.statusCode} with body ${response.body}'); // <--- **CHANGE IS HERE**
+    }
+  }
+
   Future<dynamic> delete({required String url, required String? token}) async {
     Map<String, String> headers = {};
     if (token != null) {
