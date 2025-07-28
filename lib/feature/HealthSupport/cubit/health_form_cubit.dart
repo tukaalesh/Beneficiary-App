@@ -56,7 +56,7 @@ class HealthFormCubit extends Cubit<HealthFormState> {
           "governorate": governorate,
           "monthly_income_source": incomeSource,
         },
-        token: token!,
+        token: token,
       );
 
       emit(HealthFormSuccess());
