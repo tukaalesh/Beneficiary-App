@@ -148,7 +148,8 @@ class _HealthFormScreenState extends State<HealthFormScreen> {
             context: context,
             barrierDismissible: false,
             builder: (context) => CustomAlertDialogNoConfirm(
-              title: "تم إرسال طلب المساعدة الصحية بنجاح",
+              title:
+                  "تم استلام طلب المساعدة الصحية بنجاح. سيتم التعامل معه في أقرب وقت، نرجو متابعة الإشعارات لمعرفة حالة الطلب.",
               cancelText: "إغلاق",
               onCancel: () {
                 Navigator.of(context).pop();
