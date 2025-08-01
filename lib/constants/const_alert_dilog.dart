@@ -26,12 +26,43 @@ class CustomAlertDialog extends StatelessWidget {
         title: Text(title),
         content: Text(content),
         actions: [
-          ElevatedButton(
-            
-            onPressed: onConfirm,
-            child: Text(confirmText),
+          if (onConfirm != null && confirmText.trim().isNotEmpty)
+            ElevatedButton(
+              onPressed: onConfirm,
+              child: Text(confirmText),
+            ),
+          TextButton(
+            onPressed: onCancel ?? () => Navigator.of(context).pop(),
+            child: Text(cancelText),
           ),
-          // const SizedBox(width: 60),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomAlertDialogNoConfirm extends StatelessWidget {
+  final String title;
+  final String cancelText;
+  final VoidCallback? onCancel;
+
+  const CustomAlertDialogNoConfirm({
+    super.key,
+    required this.title,
+    required this.cancelText,
+    this.onCancel,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: AlertDialog(
+        title: Text(
+          title,
+          style: TextStyle(fontSize: 16),
+        ),
+        actions: [
           TextButton(
             onPressed: onCancel ?? () => Navigator.of(context).pop(),
             child: Text(cancelText),

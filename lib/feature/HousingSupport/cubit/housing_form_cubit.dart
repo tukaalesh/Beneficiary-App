@@ -1,66 +1,218 @@
-// ignore_for_file: equal_keys_in_map
+// // ignore_for_file: equal_keys_in_map
 
-import 'housing_form_state.dart';
+// // import 'housing_form_state.dart';
+import 'package:charity_app/feature/HousingSupport/cubit/housing_form_state.dart';
 import 'package:charity_app/helper/api.dart';
 import 'package:charity_app/main.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:convert';
+
+// class HousingFormCubit extends Cubit<HousingFormState> {
+//   HousingFormCubit() : super(HousingFormInitial());
+
+//   Future<void> sendHousingCubit(
+//       {
+//required String fullNameController,
+//       required String ageController,
+//       required String phoneNumberController,
+//       required String numberOfChildrenController,
+//       required String childrenDetailsController,
+//       required String addressController,
+//       required String monthlyIncomeController,
+//       required String currentJobController,
+//       required String descriptionController,
+//       required String gender,
+//       required String maritalStatus,
+//       required String governorate,
+//       required String incomeSource,
+//       required String numberOfPeopleNeedingHousingController,
+//       required String selectedHousingStatus,
+//       required String selectedHelpType}) async {
+//     emit(HousingFormLoading());
+//     try {
+//       final token = sharedPreferences.getString("token");
+
+//       // if (token == null) {
+//       //   emit(HousingFormFailure(
+//       //       errorMessage:
+//       //           "رمز المصادقة غير موجود. يرجى تسجيل الدخول مرة أخرى."));
+//       //   return;
+//       // }
+
+//       await Api().postt(
+//         url: "http://$localhost/api/beneficiary/request/residential",
+//         body: {
+//           "full_name": fullNameController,
+//           "age": ageController,
+//           "phone_number": phoneNumberController,
+//           "number_of_kids": numberOfChildrenController,
+//           "kids_description": childrenDetailsController,
+//           "home_address": addressController,
+//           "monthly_income": monthlyIncomeController,
+//           "current_job": currentJobController,
+//           "number_of_needy": numberOfPeopleNeedingHousingController,
+//           "current_housing_condition": selectedHousingStatus,
+//           "needed_housing_help": selectedHelpType,
+//           "description": descriptionController,
+//           "gender": gender,
+//           "marital_status": maritalStatus,
+//           "governorate": governorate,
+//           "monthly_income_source": incomeSource,
+//         },
+//         token: token,
+//       );
+
+//       emit(HousingFormSuccess());
+//     } catch (e) {
+//       String errorMessage = "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.";
+//       double? daysRemaining;
+
+//       if (e is Exception) {
+//         final errorString = e.toString();
+
+//         final regex = RegExp(r'\{.*?\}');
+//         final match = regex.firstMatch(errorString);
+
+//         if (match != null) {
+//           final rawJsonString = match.group(0)!;
+
+//           try {
+//             final jsonErrorBody = jsonDecode(rawJsonString);
+
+//             if (jsonErrorBody is Map<String, dynamic>) {
+//               if (jsonErrorBody.containsKey("message")) {
+//                 final message = jsonErrorBody["message"];
+
+//                 if (message ==
+//                     "لا يمكنك تقديم طلب جديد قبل مرور 20 يوم على آخر طلب تم تقديمه.") {
+//                   daysRemaining =
+//                       (jsonErrorBody["days_remaining"] as num?)?.toDouble();
+//                   emit(HousingFormAlreadySubmitted(
+//                       daysRemaining: daysRemaining));
+//                   return;
+//                 } else {
+//                   errorMessage = message;
+//                 }
+//               }
+//             }
+//           } catch (jsonParseError) {
+//             errorMessage = ". يرجى المحاولة مرة أخرى";
+//           }
+//         } else {
+//           errorMessage = " ${errorString.replaceFirst('Exception: ', '')}";
+//         }
+//       } else {
+//         errorMessage = "An unexpected error ";
+//       }
+
+//       emit(HousingFormFailure(errorMessage: errorMessage));
+//     }
+//   }
+// }
+// ignore_for_file: dead_code_catch_following_catch, unused_catch_stack, avoid_print
+
+// import 'package:charity_app/feature/HousingSupport/cubit/Housing_form_state.dart';
+// import 'package:charity_app/helper/api.dart';
+// import 'package:charity_app/main.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'dart:convert';
 
 class HousingFormCubit extends Cubit<HousingFormState> {
   HousingFormCubit() : super(HousingFormInitial());
-  Future<void> sendHousingCubit({
-    required fullNameController,
-    required ageController,
-    required phoneNumberController,
-    required numberOfChildrenController,
-    required childrenDetailsController,
-    required addressController,
-    required monthlyIncomeController,
-    required currentJobController,
-    required descriptionController,
-    required numberOfPeopleNeedingHousingController,
-    required selectedHousingStatus,
-    required selectedHelpType,
-  }) async {
+
+  Future<void> sendHousingCubit(
+      {required String fullNameController,
+      required String ageController,
+      required String phoneNumberController,
+      required String numberOfChildrenController,
+      required String childrenDetailsController,
+      required String addressController,
+      required String monthlyIncomeController,
+      required String currentJobController,
+      required String descriptionController,
+      required String gender,
+      required String maritalStatus,
+      required String governorate,
+      required String incomeSource,
+      required String numberOfPeopleNeedingHousingController,
+      required String selectedHousingStatus,
+      required String selectedHelpType}) async {
     emit(HousingFormLoading());
+
     try {
       final token = sharedPreferences.getString("token");
-      Api().post(
-          url: "",
-          body: {
-            "": fullNameController.text,
-            "": ageController.text,
-            "": phoneNumberController.text,
-            "": numberOfChildrenController.text,
-            "": childrenDetailsController.text,
-            "": addressController.text,
-            "": monthlyIncomeController.text,
-            "": currentJobController.text,
-            "": descriptionController.text,
-            "": numberOfPeopleNeedingHousingController.text,
-            "": selectedHousingStatus,
-            "": selectedHelpType,
-          },
-          token: token);
-      emit(HousingFormSuccess());
-    } catch (e) {
-      print('ERROR CONTENT: ${e.toString()}');
 
-      final errorString = e.toString();
+      final response = await Api().postt(
+        url: "http://$localhost/api/beneficiary/request/residential",
+        body: {
+          "full_name": fullNameController,
+          "age": ageController,
+          "phone_number": phoneNumberController,
+          "number_of_kids": numberOfChildrenController,
+          "kids_description": childrenDetailsController,
+          "home_address": addressController,
+          "monthly_income": monthlyIncomeController,
+          "current_job": currentJobController,
+          "number_of_needy": numberOfPeopleNeedingHousingController,
+          "current_housing_condition": selectedHousingStatus,
+          "needed_housing_help": selectedHelpType,
+          "description": descriptionController,
+          "gender": gender,
+          "marital_status": maritalStatus,
+          "governorate": governorate,
+          "monthly_income_source": incomeSource,
+        },
+        token: token,
+      );
 
-      final match = RegExp(r'message: (.*?)\}').firstMatch(errorString);
-      final message = match?.group(1);
+      print(" Response from API: $response");
 
-      if (message != null) {
-        if (message == "") {
-          // emit(HousingFormPhoneNumberAlreadyUsed());
-          return;
+      if (response is Map<String, dynamic>) {
+        final message = response['message']?.toString();
+        print(" message: $message");
+
+        if (message == "تم إرسال طلب المساعدة السكنية بنجاح") {
+          emit(HousingFormSuccess());
+        } else if (message ==
+            "لا يمكنك تقديم طلب جديد قبل مرور 20 يوم على آخر طلب تم تقديمه.") {
+          final daysRemaining =
+              (response["days_remaining"] as num?)?.toDouble();
+          emit(HousingFormAlreadySubmitted(daysRemaining: daysRemaining));
+        } else {
+          emit(HousingFormFailure(
+              errorMessage: message ?? "رسالة غير معروفة من الخادم"));
         }
-        if (message == "") {
-          // emit(HousingFormAlreadySubmitted());
-          return;
-        }
+      } else {
+        emit(HousingFormFailure(errorMessage: "  ايروررر ايرورورورو"));
       }
-      // emit(HousingFormFailure());
+    } catch (e, stackTrace) {
+      print(" Error occurred: $e");
+      // print(" StackTrace: $stackTrace");
+
+      String errorMessage = "حدث خطأ غير متوقع. حاول مرة أخرى.";
+      double? daysRemaining;
+
+      try {
+        final msgMatch =
+            RegExp(r'message:\s?([^,}]+)').firstMatch(e.toString());
+        final daysMatch =
+            RegExp(r'days_remaining:\s?(\d+)').firstMatch(e.toString());
+
+        final extractedMessage = msgMatch?.group(1)?.trim();
+        if (extractedMessage != null) {
+          if (extractedMessage.contains("لا يمكنك تقديم طلب جديد")) {
+            daysRemaining = double.tryParse(daysMatch?.group(1) ?? '');
+            emit(HousingFormAlreadySubmitted(daysRemaining: daysRemaining));
+            return;
+          } else {
+            errorMessage = extractedMessage;
+          }
+        }
+      } catch (parseError) {
+        print("❗ Failed to manually extract error: $parseError");
+      }
+
+      emit(HousingFormFailure(errorMessage: errorMessage));
     }
   }
 }

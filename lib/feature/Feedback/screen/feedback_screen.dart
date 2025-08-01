@@ -1,6 +1,7 @@
 import 'package:charity_app/auth/widgets/auth_button.dart';
 import 'package:charity_app/auth/widgets/auth_custom_text_field.dart';
-import 'package:charity_app/constants/const_appBar.dart';
+import 'package:charity_app/constants/const_alert_dilog.dart';
+import 'package:charity_app/constants/custom_text.dart';
 import 'package:charity_app/core/extensions/context_extensions.dart';
 import 'package:charity_app/feature/Feedback/cubit/feedback_cubit.dart';
 import 'package:charity_app/feature/Feedback/cubit/feedback_states.dart';
@@ -8,9 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
 class FeedbackScreen extends StatelessWidget {
   FeedbackScreen({super.key});
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController commentController = TextEditingController();
 
@@ -22,37 +24,48 @@ class FeedbackScreen extends StatelessWidget {
         if (state is FeedBackSuccess) {
           nameController.clear();
           commentController.clear();
-          ScaffoldMessenger.of(context).clearSnackBars();
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text(
-              "تم إرسال التعليق بنجاح",
-              textDirection: TextDirection.rtl,
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => CustomAlertDialogNoConfirm(
+              title: "تم إرسال التعليق بنجاح",
+              cancelText: "إغلاق",
+              onCancel: () {
+                Navigator.of(context).pop();
+              },
             ),
-          ));
+          );
         }
         if (state is FeedBackNotAllowed) {
-          // nameController.clear();
-          // commentController.clear();
-          ScaffoldMessenger.of(context).clearSnackBars();
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            duration: Duration(seconds: 3),
-            content: Text(
-              "يجب أن تقوم بتقديم طلب مساعدة واحد على الأقل قبل إرسال الفيدباك.",
-              textDirection: TextDirection.rtl,
+          nameController.clear();
+          commentController.clear();
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => CustomAlertDialogNoConfirm(
+              title:
+                  "يجب أن تقوم بتقديم طلب مساعدة واحد على الأقل قبل إرسال الفيدباك.",
+              cancelText: "إغلاق",
+              onCancel: () {
+                Navigator.of(context).pop();
+              },
             ),
-          ));
+          );
         }
         if (state is FeedBackFailure) {
           nameController.clear();
           commentController.clear();
-          ScaffoldMessenger.of(context).clearSnackBars();
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            duration: Duration(seconds: 3),
-            content: Text(
-              "حدث خطأ يُرجى المحاولة فيما بعد",
-              textDirection: TextDirection.rtl,
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => CustomAlertDialogNoConfirm(
+              title: "حدث خطأ يُرجى المحاولة فيما بعد",
+              cancelText: "إغلاق",
+              onCancel: () {
+                Navigator.of(context).pop();
+              },
             ),
-          ));
+          );
         }
       },
       builder: (context, state) {
@@ -62,7 +75,11 @@ class FeedbackScreen extends StatelessWidget {
               children: [
                 Scaffold(
                   backgroundColor: colorScheme.surface,
-                  appBar: const ConstAppBar1(title: "إرسال الفيدباك"),
+                  appBar: AppBar(
+                    title: const Text("إرسال التقييم"),
+                    backgroundColor: colorScheme.surface,
+                    leading: null,
+                  ),
                   body: Form(
                     key: formKey,
                     child: Padding(
@@ -98,18 +115,28 @@ class FeedbackScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 8),
-                          AuthCustomTextField(
-                            hint: "",
-                            icon: const Icon(null),
+                          Customtextfields(
+                            hint: '',
                             inputType: TextInputType.name,
                             mycontroller: nameController,
-                            color: colorScheme.primary,
                             valid: (value) {
                               if (value!.isEmpty) return "يجب عليك إدخال الأسم";
 
                               return null;
                             },
                           ),
+                          // AuthCustomTextField(
+                          //   hint: "",
+                          //   icon: const Icon(null),
+                          //   inputType: TextInputType.name,
+                          //   mycontroller: nameController,
+                          //   color: colorScheme.primary,
+                          //   valid: (value) {
+                          //     if (value!.isEmpty) return "يجب عليك إدخال الأسم";
+
+                          //     return null;
+                          //   },
+                          // ),
                           const SizedBox(height: 15),
                           Padding(
                             padding: const EdgeInsets.only(right: 5.0, left: 5),
@@ -122,20 +149,36 @@ class FeedbackScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 8),
-                          AuthCustomTextField(
-                            hint: "",
-                            icon: const Icon(null),
+                          Customtextfields(
+                            hint: '',
                             inputType: TextInputType.name,
                             mycontroller: commentController,
-                            color: colorScheme.secondary,
                             valid: (value) {
                               if (value!.isEmpty) {
                                 return "يجب عليك إدخال التعليق";
                               }
-
+                              if (value.length < 12) {
+                                return "يجب ان يتضمن التعليق 10 محارف على الأقل";
+                              }
                               return null;
                             },
                           ),
+                          // AuthCustomTextField(
+                          //   hint: "",
+                          //   icon: const Icon(null),
+                          //   inputType: TextInputType.name,
+                          //   mycontroller: commentController,
+                          //   color: colorScheme.secondary,
+                          //   valid: (value) {
+                          //     if (value!.isEmpty) {
+                          //       return "يجب عليك إدخال التعليق";
+                          //     }
+                          //     if (value.length < 12) {
+                          //       return "يجب ان يتضمن التعليق 10 محارف على الأقل";
+                          //     }
+                          //     return null;
+                          //   },
+                          // ),
                           const SizedBox(height: 20),
                           Authbutton(
                             buttonText: "إرسال",
@@ -143,8 +186,9 @@ class FeedbackScreen extends StatelessWidget {
                               if (formKey.currentState!.validate()) {
                                 BlocProvider.of<FeedbackCubit>(context)
                                     .sendFeedBack(
-                                        user_name: nameController,
-                                        message: commentController);
+                                  user_name: nameController.text,
+                                  message: commentController.text,
+                                );
                               }
                             },
                             color: colorScheme.secondary,

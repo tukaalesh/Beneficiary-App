@@ -17,7 +17,8 @@ class AuthCubits extends Cubit<AuthStates> {
   }) async {
     emit(LoadingStates());
     try {
-      final responseData = await Api().post(
+      // final responseData =
+      await Api().post(
         url: "http://$localhost/api/register/beneficiary",
         body: {
           "full_name": fullNameController.text,
@@ -28,9 +29,8 @@ class AuthCubits extends Cubit<AuthStates> {
         },
         token: '',
       );
-      //اخدت الإميل وخزنتو هون لحتى اقدر ابعتو ضمن لريكوست تبع pin
-      final email = responseData['user']['email'];
-      await sharedPreferences.setString('email', email);
+      // final email = responseData['user']['email'];
+      // await sharedPreferences.setString('email', email);
 
       emit(RegisterSuccessState());
     } catch (e) {

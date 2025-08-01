@@ -1,10 +1,11 @@
+import 'package:charity_app/constants/const_alert_dilog.dart';
 import 'package:charity_app/feature/HousingSupport/cubit/housing_form_cubit.dart';
 import 'package:charity_app/feature/HousingSupport/cubit/housing_form_state.dart';
 import 'package:charity_app/feature/HousingSupport/widget/first_screen.dart';
 import 'package:charity_app/feature/HousingSupport/widget/second_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:charity_app/constants/const_appBar.dart';
 import 'package:charity_app/core/extensions/context_extensions.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -16,7 +17,9 @@ class HousingFormScreen extends StatefulWidget {
 }
 
 class _HousingFormScreenState extends State<HousingFormScreen> {
-  final _formKey = GlobalKey<FormState>();
+  final _firstPageFormKey = GlobalKey<FormState>();
+  final _secondPageFormKey = GlobalKey<FormState>();
+
   final PageController _pageController = PageController();
 
   final TextEditingController fullNameController = TextEditingController();
@@ -29,25 +32,60 @@ class _HousingFormScreenState extends State<HousingFormScreen> {
   final TextEditingController addressController = TextEditingController();
   final TextEditingController monthlyIncomeController = TextEditingController();
   final TextEditingController currentJobController = TextEditingController();
-
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController numberOfPeopleNeedingHousingController =
       TextEditingController();
 
+  String? _selectedGender;
+  String? _selectedMaritalStatus;
+  String? _selectedGovernorate;
+  String? _selectedIncomeSource;
   String? selectedHousingStatus;
   String? selectedHelpType;
 
   int currentPage = 0;
 
   void nextPage() {
-    if (_formKey.currentState != null && _formKey.currentState!.validate()) {
-      _pageController.nextPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-      setState(() {
-        currentPage++;
-      });
+    if (currentPage == 0) {
+      if (_firstPageFormKey.currentState != null &&
+          _firstPageFormKey.currentState!.validate()) {
+        if (_selectedGender == null) {
+          _showSnackBar('الرجاء اختيار الجنس.');
+          return;
+        }
+        if (_selectedMaritalStatus == null) {
+          _showSnackBar('الرجاء اختيار الحالة الاجتماعية.');
+          return;
+        }
+        if (_selectedGovernorate == null || _selectedGovernorate!.isEmpty) {
+          _showSnackBar('الرجاء اختيار المحافظة.');
+          return;
+        }
+        if (_selectedIncomeSource == null) {
+          _showSnackBar('الرجاء اختيار مصدر الدخل الشهري.');
+          return;
+        }
+
+        _pageController.nextPage(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+        setState(() {
+          currentPage++;
+        });
+      } else {
+        _showSnackBar('الرجاء تعبئة جميع الحقول المطلوبة في هذه الصفحة.');
+      }
+    } else if (currentPage == 1) {
+      if (descriptionController.text.isEmpty ||
+          numberOfPeopleNeedingHousingController.text.isEmpty ||
+          selectedHousingStatus == null ||
+          selectedHelpType == null) {
+        _showSnackBar(
+            'الرجاء تعبئة جميع الحقول المطلوبة واختيار الخيارات في هذه الصفحة.');
+        return;
+      }
+      submitForm();
     }
   }
 
@@ -61,23 +99,52 @@ class _HousingFormScreenState extends State<HousingFormScreen> {
     });
   }
 
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
+
   void submitForm() {
-    if (_formKey.currentState != null && _formKey.currentState!.validate()) {
+    if (fullNameController.text.isNotEmpty &&
+        ageController.text.isNotEmpty &&
+        phoneNumberController.text.isNotEmpty &&
+        addressController.text.isNotEmpty &&
+        monthlyIncomeController.text.isNotEmpty &&
+        currentJobController.text.isNotEmpty &&
+        descriptionController.text.isNotEmpty &&
+        numberOfPeopleNeedingHousingController.text.isNotEmpty &&
+        _selectedGender != null &&
+        _selectedMaritalStatus != null &&
+        _selectedGovernorate != null &&
+        _selectedIncomeSource != null &&
+        selectedHousingStatus != null &&
+        selectedHelpType != null) {
       final cubit = context.read<HousingFormCubit>();
       cubit.sendHousingCubit(
-          fullNameController: fullNameController,
-          ageController: ageController,
-          phoneNumberController: phoneNumberController,
-          numberOfChildrenController: numberOfChildrenController,
-          childrenDetailsController: childrenDetailsController,
-          addressController: addressController,
-          monthlyIncomeController: monthlyIncomeController,
-          currentJobController: currentJobController,
-          descriptionController: descriptionController,
-          numberOfPeopleNeedingHousingController:
-              numberOfPeopleNeedingHousingController,
-          selectedHousingStatus: selectedHousingStatus,
-          selectedHelpType: selectedHelpType);
+        fullNameController: fullNameController.text,
+        ageController: ageController.text,
+        phoneNumberController: phoneNumberController.text,
+        numberOfChildrenController: numberOfChildrenController.text,
+        childrenDetailsController: childrenDetailsController.text,
+        addressController: addressController.text,
+        monthlyIncomeController: monthlyIncomeController.text,
+        currentJobController: currentJobController.text,
+        descriptionController: descriptionController.text,
+        numberOfPeopleNeedingHousingController:
+            numberOfPeopleNeedingHousingController.text,
+        selectedHousingStatus: selectedHousingStatus!,
+        selectedHelpType: selectedHelpType!,
+        gender: _selectedGender!,
+        maritalStatus: _selectedMaritalStatus!,
+        governorate: _selectedGovernorate!,
+        incomeSource: _selectedIncomeSource!,
+      );
+    } else {
+      _showSnackBar('الرجاء تعبئة جميع الحقول المطلوبة واختيار الخيارات.');
     }
   }
 
@@ -104,30 +171,56 @@ class _HousingFormScreenState extends State<HousingFormScreen> {
     return BlocConsumer<HousingFormCubit, HousingFormState>(
       listener: (context, state) {
         if (state is HousingFormSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("تم إرسال طلب المساعدة بنجاح")),
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => CustomAlertDialogNoConfirm(
+              title: "تم إرسال طلب المساعدة السكنية بنجاح",
+              cancelText: "إغلاق",
+              onCancel: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    'NavigationMain', (route) => false);
+              },
+            ),
           );
-          Navigator.pop(context);
+
+          // _showSnackBar("تم إرسال طلب المساعدة بنجاح");
         } else if (state is HousingFormAlreadySubmitted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                duration: Duration(seconds: 4),
-                content: Text(
-                    "لقد قمت بإرسال طلب المساعدة مسبقًا ولا يمكنك التسجيل مرة أخرى.")),
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => CustomAlertDialogNoConfirm(
+              title:
+                  "نتفهم حاجتكم، ولكن لا يمكن تقديم طلب مساعدة سكنية جديد إلا بعد مرور 20 يوم",
+              cancelText: "إغلاق",
+              onCancel: () {
+                // Navigator.of(context).pop();
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    'NavigationMain', (route) => false);
+              },
+            ),
           );
-        } else if (state is HousingFormPhoneNumberAlreadyUsed) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                duration: Duration(seconds: 4),
-                content: Text("رقم الهاتف مستخدم بالفعل من قبل مستخدم آخر")),
-          );
+
+          if (state.daysRemaining != null) {}
         } else if (state is HousingFormFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                duration: Duration(seconds: 3),
-                content: Text("حصل خطأ يُرجى المحاولة لاحقاً !")),
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => CustomAlertDialogNoConfirm(
+              title: "حدث خطأ ما ! يرجى المحاولة فيما بعد",
+              cancelText: "إغلاق",
+              onCancel: () {
+                Navigator.of(context).pop();
+              },
+            ),
           );
+          // _showSnackBar(state.errorMessage);
         }
+
+        //  else if (state is HousingFormFailure) {
+        //   _showSnackBar("حدث خطأ ما ! يرجى المحاولة فيما بعد");
+        // }
       },
       builder: (context, state) {
         return Directionality(
@@ -137,46 +230,68 @@ class _HousingFormScreenState extends State<HousingFormScreen> {
               Scaffold(
                 appBar: const ConstAppBar(title: "تقديم طلب مساعدة سكني"),
                 backgroundColor: context.colorScheme.surface,
-                body: Form(
-                  key: _formKey,
-                  child: PageView(
-                    controller: _pageController,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      FirstHousingScreen(
-                        fullNameController: fullNameController,
-                        ageController: ageController,
-                        phoneNumberController: phoneNumberController,
-                        numberOfChildrenController: numberOfChildrenController,
-                        childrenDetailsController: childrenDetailsController,
-                        addressController: addressController,
-                        monthlyIncomeController: monthlyIncomeController,
-                        currentJobController: currentJobController,
-                        onNext: nextPage,
-                        colorScheme: colorScheme,
-                      ),
-                      SecondHousingScreen(
-                        descriptionController: descriptionController,
-                        numberOfPeopleNeedingHousingController:
-                            numberOfPeopleNeedingHousingController,
-                        selectedHousingStatus: selectedHousingStatus,
-                        selectedHelpType: selectedHelpType,
-                        onHousingStatusChanged: (newValue) {
-                          setState(() {
-                            selectedHousingStatus = newValue;
-                          });
-                        },
-                        onHelpTypeChanged: (newValue) {
-                          setState(() {
-                            selectedHelpType = newValue;
-                          });
-                        },
-                        onPrevious: previousPage,
-                        onSubmit: submitForm,
-                        colorScheme: colorScheme,
-                      ),
-                    ],
-                  ),
+                body: PageView(
+                  controller: _pageController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    FirstHousingScreen(
+                      formKey: _firstPageFormKey,
+                      fullNameController: fullNameController,
+                      ageController: ageController,
+                      phoneNumberController: phoneNumberController,
+                      numberOfChildrenController: numberOfChildrenController,
+                      childrenDetailsController: childrenDetailsController,
+                      addressController: addressController,
+                      monthlyIncomeController: monthlyIncomeController,
+                      currentJobController: currentJobController,
+                      onNext: nextPage,
+                      initialGender: _selectedGender,
+                      onGenderChanged: (gender) {
+                        setState(() {
+                          _selectedGender = gender;
+                        });
+                      },
+                      initialMaritalStatus: _selectedMaritalStatus,
+                      onMaritalStatusChanged: (status) {
+                        setState(() {
+                          _selectedMaritalStatus = status;
+                        });
+                      },
+                      initialGovernorate: _selectedGovernorate,
+                      onGovernorateChanged: (governorate) {
+                        setState(() {
+                          _selectedGovernorate = governorate;
+                        });
+                      },
+                      initialIncomeSource: _selectedIncomeSource,
+                      onIncomeSourceChanged: (source) {
+                        setState(() {
+                          _selectedIncomeSource = source;
+                        });
+                      },
+                    ),
+                    SecondHousingScreen(
+                      formKey: _secondPageFormKey,
+                      descriptionController: descriptionController,
+                      numberOfPeopleNeedingHousingController:
+                          numberOfPeopleNeedingHousingController,
+                      selectedHousingStatus: selectedHousingStatus,
+                      selectedHelpType: selectedHelpType,
+                      onHousingStatusChanged: (newValue) {
+                        setState(() {
+                          selectedHousingStatus = newValue;
+                        });
+                      },
+                      onHelpTypeChanged: (newValue) {
+                        setState(() {
+                          selectedHelpType = newValue;
+                        });
+                      },
+                      onPrevious: previousPage,
+                      onSubmit: submitForm,
+                      colorScheme: colorScheme,
+                    ),
+                  ],
                 ),
               ),
               if (state is HousingFormLoading)

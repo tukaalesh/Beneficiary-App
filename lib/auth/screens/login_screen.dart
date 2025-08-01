@@ -2,6 +2,7 @@ import 'package:charity_app/auth/cubits/auth_cubits/auth_cubits.dart';
 import 'package:charity_app/auth/cubits/auth_cubits/auth_states.dart';
 import 'package:charity_app/auth/widgets/auth_button.dart';
 import 'package:charity_app/auth/widgets/auth_custom_text_field.dart';
+import 'package:charity_app/constants/const_alert_dilog.dart';
 import 'package:charity_app/core/extensions/context_extensions.dart';
 import 'package:charity_app/constants/const_image.dart';
 import 'package:flutter/material.dart';
@@ -29,10 +30,15 @@ class LoginScreen extends StatelessWidget {
           if (state is LoginSuccessState) {
             Navigator.pushNamed(context, 'NavigationMain');
           } else if (state is LoginFailureState) {
-            ScaffoldMessenger.of(context).clearSnackBars();
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text("عذراً يرجى المحاولة مجدداً"),
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) => CustomAlertDialogNoConfirm(
+                title: "عذراً يرجى المحاولة مجدداً",
+                cancelText: "إغلاق",
+                onCancel: () {
+                  Navigator.of(context).pop();
+                },
               ),
             );
           }

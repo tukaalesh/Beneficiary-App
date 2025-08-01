@@ -1,3 +1,4 @@
+import 'package:charity_app/constants/const_alert_dilog.dart';
 import 'package:charity_app/feature/HealthSupport/cubit/health_form_cubit.dart';
 import 'package:charity_app/feature/HealthSupport/cubit/health_form_state.dart';
 import 'package:charity_app/feature/HealthSupport/widget/first_screen.dart';
@@ -158,21 +159,56 @@ class _HealthFormScreenState extends State<HealthFormScreen> {
     return BlocConsumer<HealthFormCubit, HealthFormState>(
       listener: (context, state) {
         if (state is HealthFormSuccess) {
-          _showSnackBar("تم إرسال طلب المساعدة بنجاح");
-          Navigator.pop(context);
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => CustomAlertDialogNoConfirm(
+              title: "تم إرسال طلب المساعدة الصحية بنجاح",
+              cancelText: "إغلاق",
+              onCancel: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    'NavigationMain', (route) => false);
+              },
+            ),
+          );
+
+          // _showSnackBar("تم إرسال طلب المساعدة بنجاح");
         } else if (state is HealthFormAlreadySubmitted) {
-          String message =
-              "نتفهم حاجتكم، ولكن لا يمكن تقديم طلب مساعدة صحية جديد إلا بعد مرور ";
-          if (state.daysRemaining != null) {
-            message += "${state.daysRemaining!.ceil()} يومًا ";
-          } else {
-            message += "فترة معينة ";
-          }
-          message += "على طلبكم السابق.";
-          _showSnackBar(message);
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => CustomAlertDialogNoConfirm(
+              title:
+                  "نتفهم حاجتكم، ولكن لا يمكن تقديم طلب مساعدة صحية جديد إلا بعد مرور 20 يوم",
+              cancelText: "إغلاق",
+              onCancel: () {
+                // Navigator.of(context).pop();
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    'NavigationMain', (route) => false);
+              },
+            ),
+          );
+
+          if (state.daysRemaining != null) {}
         } else if (state is HealthFormFailure) {
-          _showSnackBar(state.errorMessage);
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => CustomAlertDialogNoConfirm(
+              title: "حدث خطأ ما ! يرجى المحاولة فيما بعد",
+              cancelText: "إغلاق",
+              onCancel: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          );
+          // _showSnackBar(state.errorMessage);
         }
+
+        //  else if (state is HealthFormFailure) {
+        //   _showSnackBar("حدث خطأ ما ! يرجى المحاولة فيما بعد");
+        // }
       },
       builder: (context, state) {
         return Directionality(

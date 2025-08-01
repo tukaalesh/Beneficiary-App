@@ -6,8 +6,19 @@ class HousingFormLoading extends HousingFormState {}
 
 class HousingFormSuccess extends HousingFormState {}
 
-class HousingFormFailure extends HousingFormState {}
+class HousingFormFailure extends HousingFormState {
+  final String errorMessage;
+  HousingFormFailure({required this.errorMessage});
 
-class HousingFormAlreadySubmitted extends HousingFormState {}
+  @override
+  String toString() => 'HousingFormFailure(errorMessage: $errorMessage)';
+}
 
-class HousingFormPhoneNumberAlreadyUsed extends HousingFormState {}
+class HousingFormAlreadySubmitted extends HousingFormState {
+  final double? daysRemaining;
+  HousingFormAlreadySubmitted({this.daysRemaining});
+
+  @override
+  String toString() =>
+      'HousingFormAlreadySubmitted(daysRemaining: $daysRemaining)';
+}

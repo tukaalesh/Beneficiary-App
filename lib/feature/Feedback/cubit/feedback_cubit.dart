@@ -17,8 +17,8 @@ class FeedbackCubit extends Cubit<FeedbackStates> {
       final responseData = await Api().post(
         url: "http://$localhost/api/feedback/beneficiary",
         body: {
-          "user_name": user_name.text,
-          "message": message.text,
+          "user_name": user_name,
+          "message": message,
         },
         token: '$token',
       );

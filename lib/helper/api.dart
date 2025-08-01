@@ -60,49 +60,69 @@ class Api {
     }
   }
 
-//هاد حصرا للاستبيان
+  //هاد حصرا للاستبيان
   Future<dynamic> postt({
     required String url,
-    required Map<String, dynamic> body,
-    String? token,
+    @required dynamic body,
+    @required String? token,
   }) async {
     Map<String, String> headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Accept': 'application/json',
     };
 
-    http.Response response = await http.post(
+    if (token != null) {
+      headers['Authorization'] = 'Bearer $token';
+    }
+
+    final response = await http.post(
       Uri.parse(url),
-      headers: headers,
       body: jsonEncode(body),
+      headers: headers,
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201 || response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {
       throw Exception(
-          'ther is a problem ${response.statusCode} with body ${response.body}');
+        'ther is a problem  ${response.statusCode} with body ${jsonDecode(response.body)}',
+      );
     }
   }
 
-  Future<dynamic> delete({required String url, required String? token}) async {
-    Map<String, String> headers = {};
-    if (token != null) {
-      headers.addAll({'Authorization': 'Bearer $token'});
-    }
+  Future<dynamic> delete({
+    required String url,
+    required String? token,
+  }) async {
+    final headers = {
+      if (token != null) 'Authorization': 'Bearer $token',
+    };
 
-    http.Response response =
-        await http.delete(Uri.parse(url), headers: headers);
+    try {
+      final response = await http.delete(
+        Uri.parse(url),
+        headers: headers,
+      );
 
-    if (response.statusCode == 200 || response.statusCode == 204) {
-      if (response.body.isNotEmpty) {
-        return jsonDecode(response.body);
+      print(' DELETE to: $url');
+      print(' Status Code: ${response.statusCode}');
+      print(' Response Body: ${response.body}');
+
+      if (response.statusCode == 200 ||
+          response.statusCode == 204 ||
+          response.statusCode == 201) {
+        if (response.body.isNotEmpty) {
+          return jsonDecode(response.body);
+        } else {
+          return null;
+        }
       } else {
-        return null;
+        throw Exception(
+            'DELETE Error [${response.statusCode}]: ${response.body}');
       }
-    } else {
-      throw Exception(
-          'هناك مشكلة في الحذف، رمز الحالة: ${response.statusCode} مع نص الرد: ${response.body}');
+    } catch (e) {
+      print(' DELETE Exception: $e');
+      rethrow;
     }
   }
 }

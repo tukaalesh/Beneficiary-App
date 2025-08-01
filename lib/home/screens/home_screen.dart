@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:charity_app/constants/const_appBar.dart';
 import 'package:charity_app/core/extensions/context_extensions.dart';
 import 'package:charity_app/home/cubits/count_notification_cubit/count-notification_cubit.dart';
 import 'package:charity_app/home/cubits/count_notification_cubit/count-notification_state.dart';
@@ -25,6 +24,7 @@ class HomeScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text("الصفحة الرئيسية"),
           backgroundColor: colorScheme.surface,
+          leading: null,
           actions: [
             BlocBuilder<CountNotificationCubit, CountNotificationState>(
               builder: (context, state) {
@@ -54,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                         top: 8,
                         child: Container(
                           padding: const EdgeInsets.all(2),
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.redAccent,
                             shape: BoxShape.circle,
                           ),

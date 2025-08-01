@@ -2,6 +2,7 @@ import 'package:charity_app/auth/cubits/auth_cubits/auth_cubits.dart';
 import 'package:charity_app/auth/cubits/auth_cubits/auth_states.dart';
 import 'package:charity_app/auth/widgets/auth_button.dart';
 import 'package:charity_app/auth/widgets/auth_custom_text_field.dart';
+import 'package:charity_app/constants/const_alert_dilog.dart';
 import 'package:charity_app/core/extensions/context_extensions.dart';
 import 'package:charity_app/constants/const_image.dart';
 import 'package:flutter/material.dart';
@@ -31,18 +32,17 @@ class SignUpScreen extends StatelessWidget {
       body: BlocConsumer<AuthCubits, AuthStates>(
         listener: (context, state) {
           if (state is RegisterSuccessState) {
-            ScaffoldMessenger.of(context).clearSnackBars();
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Center(child: Text(" تم إنشاء الحساب بنجاح ")),
-              ),
-            );
             Navigator.pushNamed(context, 'LogIn');
           } else if (state is RegisterFailureState) {
-            ScaffoldMessenger.of(context).clearSnackBars();
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text("حدث خطأ يُرجى المحاولة لاحقاً"),
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) => CustomAlertDialogNoConfirm(
+                title: "عذراً يرجى المحاولة مجدداً",
+                cancelText: "إغلاق",
+                onCancel: () {
+                  Navigator.of(context).pop();
+                },
               ),
             );
           }

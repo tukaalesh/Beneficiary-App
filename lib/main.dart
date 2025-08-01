@@ -9,7 +9,12 @@ import 'package:charity_app/feature/Feedback/cubit/feedback_cubit.dart';
 import 'package:charity_app/feature/HealthSupport/cubit/health_form_cubit.dart';
 import 'package:charity_app/feature/HealthSupport/screen/health_form_screen.dart';
 import 'package:charity_app/feature/HousingSupport/cubit/housing_form_cubit.dart';
+import 'package:charity_app/feature/education/cubit/education_form_cubit.dart';
+import 'package:charity_app/feature/education/screen/education_screen.dart';
+import 'package:charity_app/feature/health/cubit/nutritional_cubit.dart';
+import 'package:charity_app/feature/health/screen/nutritional_screen.dart';
 import 'package:charity_app/feature/notification/screen/notification_screen.dart';
+import 'package:charity_app/feature/request_status/request_status/cubit/request_status_cubit.dart';
 import 'package:charity_app/home/cubits/count_notification_cubit/count-notification_cubit.dart';
 import 'package:charity_app/home/cubits/navigation/navigation_cubit.dart';
 import 'package:charity_app/home/cubits/themeCubit/theme_cubit.dart';
@@ -54,7 +59,11 @@ class MyApp extends StatelessWidget {
         // BlocProvider(create: (context) => UserCubit()),
         BlocProvider(create: (context) => NavigationCubit()),
         BlocProvider(create: (context) => FeedbackCubit()),
-
+        BlocProvider(create: (context) => RequestStatusCubit()),
+        BlocProvider(create: (context) => EducationRequestCubit()),
+        BlocProvider(create: (context) => EducationFormCubit()),
+        BlocProvider(create: (context) => NutritionalFormCubit()),
+        BlocProvider(create: (context) => NutritionalRequestCubit()),
         BlocProvider(create: (context) => HousingFormCubit()),
         BlocProvider(create: (context) => HealthFormCubit()),
         BlocProvider<CountNotificationCubit>(

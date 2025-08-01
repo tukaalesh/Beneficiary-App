@@ -35,7 +35,11 @@ class Setting extends StatelessWidget {
         child: Directionality(
           textDirection: TextDirection.rtl,
           child: Scaffold(
-            appBar: const ConstAppBar1(title: "الإعدادات"),
+            appBar: AppBar(
+              title: const Text("الإعدادات"),
+              backgroundColor: colorScheme.surface,
+              leading: null,
+            ),
             backgroundColor: colorScheme.surface,
             body: RefreshIndicator(
               onRefresh: () async {

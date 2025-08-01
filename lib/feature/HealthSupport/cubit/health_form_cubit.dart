@@ -1,4 +1,4 @@
-// ignore_for_file: equal_keys_in_map
+// ignore_for_file: dead_code_catch_following_catch, unused_catch_stack, avoid_print
 
 import 'package:charity_app/feature/HealthSupport/cubit/health_form_state.dart';
 import 'package:charity_app/helper/api.dart';
@@ -27,17 +27,11 @@ class HealthFormCubit extends Cubit<HealthFormState> {
     required String incomeSource,
   }) async {
     emit(HealthFormLoading());
+
     try {
       final token = sharedPreferences.getString("token");
 
-      // if (token == null) {
-      //   emit(HealthFormFailure(
-      //       errorMessage:
-      //           "رمز المصادقة غير موجود. يرجى تسجيل الدخول مرة أخرى."));
-      //   return;
-      // }
-
-      await Api().postt(
+      final response = await Api().postt(
         url: "http://$localhost/api/beneficiary/request/health",
         body: {
           "full_name": fullNameController,
@@ -59,48 +53,51 @@ class HealthFormCubit extends Cubit<HealthFormState> {
         token: token,
       );
 
-      emit(HealthFormSuccess());
-    } catch (e) {
-      String errorMessage = "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.";
-      double? daysRemaining;
+      print("🔥 Response from API: $response");
 
-      if (e is Exception) {
-        final errorString = e.toString();
+      if (response is Map<String, dynamic>) {
+        final message = response['message']?.toString();
+        print(" message: $message");
 
-        final regex = RegExp(r'\{.*?\}');
-        final match = regex.firstMatch(errorString);
-
-        if (match != null) {
-          final rawJsonString = match.group(0)!;
-
-          try {
-            final jsonErrorBody = jsonDecode(rawJsonString);
-
-            if (jsonErrorBody is Map<String, dynamic>) {
-              if (jsonErrorBody.containsKey("message")) {
-                final message = jsonErrorBody["message"];
-
-                if (message ==
-                    "لا يمكنك تقديم طلب جديد قبل مرور 20 يوم على آخر طلب تم تقديمه.") {
-                  daysRemaining =
-                      (jsonErrorBody["days_remaining"] as num?)?.toDouble();
-                  emit(
-                      HealthFormAlreadySubmitted(daysRemaining: daysRemaining));
-                  return;
-                } else {
-                  errorMessage = message;
-                }
-              }
-            }
-          } catch (jsonParseError) {
-            errorMessage = ". يرجى المحاولة مرة أخرى";
-          }
+        if (message == "تم إرسال طلب المساعدة الصحية بنجاح") {
+          emit(HealthFormSuccess());
+        } else if (message ==
+            "لا يمكنك تقديم طلب جديد قبل مرور 20 يوم على آخر طلب تم تقديمه.") {
+          final daysRemaining =
+              (response["days_remaining"] as num?)?.toDouble();
+          emit(HealthFormAlreadySubmitted(daysRemaining: daysRemaining));
         } else {
-          errorMessage =
-              "Unknown API Error: ${errorString.replaceFirst('Exception: ', '')}";
+          emit(HealthFormFailure(
+              errorMessage: message ?? "رسالة غير معروفة من الخادم"));
         }
       } else {
-        errorMessage = "An unexpected error type occurred.";
+        emit(HealthFormFailure(errorMessage: "  ايروررر ايرورورورو"));
+      }
+    } catch (e, stackTrace) {
+      print(" Error occurred: $e");
+      // print(" StackTrace: $stackTrace");
+
+      String errorMessage = "حدث خطأ غير متوقع. حاول مرة أخرى.";
+      double? daysRemaining;
+
+      try {
+        final msgMatch =
+            RegExp(r'message:\s?([^,}]+)').firstMatch(e.toString());
+        final daysMatch =
+            RegExp(r'days_remaining:\s?(\d+)').firstMatch(e.toString());
+
+        final extractedMessage = msgMatch?.group(1)?.trim();
+        if (extractedMessage != null) {
+          if (extractedMessage.contains("لا يمكنك تقديم طلب جديد")) {
+            daysRemaining = double.tryParse(daysMatch?.group(1) ?? '');
+            emit(HealthFormAlreadySubmitted(daysRemaining: daysRemaining));
+            return;
+          } else {
+            errorMessage = extractedMessage;
+          }
+        }
+      } catch (parseError) {
+        print("❗ Failed to manually extract error: $parseError");
       }
 
       emit(HealthFormFailure(errorMessage: errorMessage));

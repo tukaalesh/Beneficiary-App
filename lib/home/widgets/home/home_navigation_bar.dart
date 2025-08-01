@@ -28,8 +28,8 @@ class HomeNavigationBar extends StatelessWidget {
                 icon: Icon(Icons.feedback_outlined), label: 'التقييم'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.assignment_turned_in), label: 'حالة الطلب'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.assignment), label: 'طلب المساعدة'),
+            // BottomNavigationBarItem(
+            //     icon: Icon(Icons.assignment), label: 'طلب المساعدة'),
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'الرئيسية'),
           ],
         );
