@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:charity_app/constants/const_appBar.dart';
 import 'package:charity_app/core/extensions/context_extensions.dart';
 import 'package:charity_app/feature/education/widget/form_page0ne.dart';

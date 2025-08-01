@@ -4,7 +4,6 @@ import 'package:charity_app/feature/HealthSupport/cubit/health_form_state.dart';
 import 'package:charity_app/helper/api.dart';
 import 'package:charity_app/main.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'dart:convert';
 
 class HealthFormCubit extends Cubit<HealthFormState> {
   HealthFormCubit() : super(HealthFormInitial());
@@ -53,7 +52,7 @@ class HealthFormCubit extends Cubit<HealthFormState> {
         token: token,
       );
 
-      print("🔥 Response from API: $response");
+      print(" Response from API: $response");
 
       if (response is Map<String, dynamic>) {
         final message = response['message']?.toString();
@@ -97,7 +96,7 @@ class HealthFormCubit extends Cubit<HealthFormState> {
           }
         }
       } catch (parseError) {
-        print("❗ Failed to manually extract error: $parseError");
+        print("Failed to manually extract error: $parseError");
       }
 
       emit(HealthFormFailure(errorMessage: errorMessage));

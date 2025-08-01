@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_to_list_in_spreads
+// ignore_for_file: unnecessary_to_list_in_spreads, deprecated_member_use
 
 import 'package:charity_app/auth/widgets/auth_button.dart';
 import 'package:charity_app/constants/custom_text.dart';
@@ -87,7 +87,7 @@ class _SecondScreenState extends State<SecondHousingScreen> {
               return CheckboxListTile(
                 visualDensity: const VisualDensity(vertical: -4),
                 side: const BorderSide(color: Colors.grey, width: 1),
-                title: Text(option, style: const TextStyle(fontSize: 13)),
+                title: Text(option, style: const TextStyle(fontSize: 14)),
                 value: widget.selectedHousingStatus == option,
                 onChanged: (val) => widget.onHousingStatusChanged(option),
                 controlAffinity: ListTileControlAffinity.leading,
@@ -99,7 +99,7 @@ class _SecondScreenState extends State<SecondHousingScreen> {
                 padding: EdgeInsets.only(right: 15.0, top: 5.0),
                 child: Text(
                   "يجب اختيار حالة السكن الحالية",
-                  style: TextStyle(color: Colors.red, fontSize: 12),
+                  style: TextStyle(color: Colors.red, fontSize: 13),
                 ),
               ),
 
@@ -121,7 +121,7 @@ class _SecondScreenState extends State<SecondHousingScreen> {
               return CheckboxListTile(
                 visualDensity: const VisualDensity(vertical: -4),
                 side: const BorderSide(color: Colors.grey, width: 1),
-                title: Text(option, style: const TextStyle(fontSize: 13)),
+                title: Text(option, style: const TextStyle(fontSize: 14)),
                 value: widget.selectedHelpType == option,
                 onChanged: (val) => widget.onHelpTypeChanged(option),
                 controlAffinity: ListTileControlAffinity.leading,
@@ -133,7 +133,7 @@ class _SecondScreenState extends State<SecondHousingScreen> {
                 padding: EdgeInsets.only(right: 15.0, top: 5.0),
                 child: Text(
                   "يجب اختيار نوع المساعدة المطلوبة",
-                  style: TextStyle(color: Colors.red, fontSize: 12),
+                  style: TextStyle(color: Colors.red, fontSize: 13),
                 ),
               ),
 

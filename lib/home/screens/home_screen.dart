@@ -6,7 +6,6 @@ import 'package:charity_app/home/cubits/count_notification_cubit/count-notificat
 import 'package:charity_app/home/widgets/home/part1/home_slider.dart';
 import 'package:charity_app/home/widgets/home/part2/home_section2.dart';
 import 'package:charity_app/home/widgets/home/part3/home_section3.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

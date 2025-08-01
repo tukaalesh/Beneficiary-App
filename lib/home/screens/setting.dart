@@ -1,7 +1,8 @@
+// ignore_for_file: use_build_context_synchronously, curly_braces_in_flow_control_structures
+
 import 'package:charity_app/auth/cubits/auth_cubits/auth_cubits.dart';
 import 'package:charity_app/auth/cubits/auth_cubits/auth_states.dart';
 import 'package:charity_app/constants/const_alert_dilog.dart';
-import 'package:charity_app/constants/const_appBar.dart';
 import 'package:charity_app/core/extensions/context_extensions.dart';
 import 'package:charity_app/home/cubits/count_notification_cubit/count-notification_cubit.dart';
 import 'package:charity_app/home/cubits/count_notification_cubit/count-notification_state.dart';

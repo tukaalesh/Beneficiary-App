@@ -1,3 +1,5 @@
+// ignore_for_file: curly_braces_in_flow_control_structures, deprecated_member_use
+
 import 'package:charity_app/auth/cubits/auth_cubits/auth_cubits.dart';
 import 'package:charity_app/auth/cubits/auth_cubits/auth_states.dart';
 import 'package:charity_app/auth/widgets/auth_button.dart';

@@ -1,6 +1,5 @@
-// ignore_for_file: unnecessary_to_list_in_spreads
+// ignore_for_file: unnecessary_to_list_in_spreads, deprecated_member_use
 
-import 'dart:io';
 import 'package:charity_app/auth/widgets/auth_button.dart';
 import 'package:charity_app/constants/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -58,9 +57,7 @@ class _SecondScreenState extends State<SecondHealthScreen> {
               colorBlendMode: BlendMode.dstATop,
             ),
           ),
-
           const SizedBox(height: 20),
-
           const Align(
             alignment: Alignment.centerRight,
             child: Padding(
@@ -75,7 +72,7 @@ class _SecondScreenState extends State<SecondHealthScreen> {
             return CheckboxListTile(
               visualDensity: const VisualDensity(vertical: -4),
               side: const BorderSide(color: Colors.grey, width: 1),
-              title: Text(option, style: const TextStyle(fontSize: 13)),
+              title: Text(option, style: const TextStyle(fontSize: 14)),
               value: widget.selectedOption == option,
               onChanged: (val) {
                 widget.onOptionChanged(option);
@@ -89,14 +86,10 @@ class _SecondScreenState extends State<SecondHealthScreen> {
               padding: EdgeInsets.only(right: 15.0, top: 5.0),
               child: Text(
                 'الرجاء اختيار درجة الخطورة',
-                style: TextStyle(color: Colors.red, fontSize: 12),
+                style: TextStyle(color: Colors.red, fontSize: 13),
               ),
             ),
-
-          // const SizedBox(height: 10),
           Divider(height: 30, thickness: 1, color: Colors.grey[300]),
-          // const SizedBox(height: 15),
-
           const Align(
             alignment: Alignment.centerRight,
             child: Padding(
@@ -119,7 +112,6 @@ class _SecondScreenState extends State<SecondHealthScreen> {
               return null;
             },
           ),
-
           const SizedBox(height: 20),
           const Align(
             alignment: Alignment.centerRight,
@@ -146,22 +138,7 @@ class _SecondScreenState extends State<SecondHealthScreen> {
               return null;
             },
           ),
-
-          // // قسم الوثائق الطبية
-          // const Align(
-          //   alignment: Alignment.centerRight,
-          //   child: Padding(
-          //     padding: EdgeInsets.only(right: 15.0),
-          //     child: Text(
-          //       'الوثائق الطبية',
-          //       style: TextStyle(
-          //         fontSize: 14,
-          //       ),
-          //     ),
-          //   ),
-          // ),
           const SizedBox(height: 10),
-
           Padding(
             padding: const EdgeInsets.only(bottom: 20, top: 10),
             child: Row(

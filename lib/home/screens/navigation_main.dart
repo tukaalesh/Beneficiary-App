@@ -9,7 +9,6 @@ class NavigationMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NavigationCubit, int>(
-      //بس النافيغيشن كيوبت تبعتلي انه اتغيرت الستيت  منعيد بناء الواجهة
       builder: (context, state) {
         final cubit = context.read<NavigationCubit>();
         return Scaffold(

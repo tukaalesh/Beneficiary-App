@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:charity_app/constants/custom_text.dart';
 import 'package:charity_app/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';

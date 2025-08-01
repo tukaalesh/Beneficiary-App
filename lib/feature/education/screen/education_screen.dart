@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:charity_app/feature/education/cubit/education_form_cubit.dart';
 import 'package:charity_app/feature/education/cubit/education_state.dart';
 import 'package:charity_app/feature/education/widget/education_form.dart';

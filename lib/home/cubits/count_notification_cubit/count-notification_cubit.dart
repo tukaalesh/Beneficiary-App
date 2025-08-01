@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:charity_app/auth/model/NotificationCountModel.dart';
 import 'package:charity_app/helper/api.dart';
 import 'package:charity_app/home/cubits/count_notification_cubit/count-notification_state.dart';

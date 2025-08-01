@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, unnecessary_string_interpolations
+
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 

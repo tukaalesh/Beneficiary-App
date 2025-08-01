@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:charity_app/constants/const_alert_dilog.dart';
 import 'package:charity_app/feature/HealthSupport/cubit/health_form_cubit.dart';
 import 'package:charity_app/feature/HealthSupport/cubit/health_form_state.dart';
@@ -46,23 +48,6 @@ class _HealthFormScreenState extends State<HealthFormScreen> {
     if (currentPage == 0) {
       if (_firstPageFormKey.currentState != null &&
           _firstPageFormKey.currentState!.validate()) {
-        if (_selectedGender == null) {
-          _showSnackBar('الرجاء اختيار الجنس.');
-          return;
-        }
-        if (_selectedMaritalStatus == null) {
-          _showSnackBar('الرجاء اختيار الحالة الاجتماعية.');
-          return;
-        }
-        if (_selectedGovernorate == null || _selectedGovernorate!.isEmpty) {
-          _showSnackBar('الرجاء اختيار المحافظة.');
-          return;
-        }
-        if (_selectedIncomeSource == null) {
-          _showSnackBar('الرجاء اختيار مصدر الدخل الشهري.');
-          return;
-        }
-
         _pageController.nextPage(
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOut,
@@ -172,8 +157,6 @@ class _HealthFormScreenState extends State<HealthFormScreen> {
               },
             ),
           );
-
-          // _showSnackBar("تم إرسال طلب المساعدة بنجاح");
         } else if (state is HealthFormAlreadySubmitted) {
           showDialog(
             context: context,
@@ -205,10 +188,6 @@ class _HealthFormScreenState extends State<HealthFormScreen> {
           );
           // _showSnackBar(state.errorMessage);
         }
-
-        //  else if (state is HealthFormFailure) {
-        //   _showSnackBar("حدث خطأ ما ! يرجى المحاولة فيما بعد");
-        // }
       },
       builder: (context, state) {
         return Directionality(

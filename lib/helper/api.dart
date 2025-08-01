@@ -90,39 +90,35 @@ class Api {
     }
   }
 
-  Future<dynamic> delete({
-    required String url,
-    required String? token,
-  }) async {
-    final headers = {
-      if (token != null) 'Authorization': 'Bearer $token',
-    };
+  // Future<dynamic> delete({
+  //   required String url,
+  //   required String? token,
+  // }) async {
+  //   final headers = {
+  //     if (token != null) 'Authorization': 'Bearer $token',
+  //   };
 
-    try {
-      final response = await http.delete(
-        Uri.parse(url),
-        headers: headers,
-      );
+  //   try {
+  //     final response = await http.delete(
+  //       Uri.parse(url),
+  //       headers: headers,
+  //     );
 
-      print(' DELETE to: $url');
-      print(' Status Code: ${response.statusCode}');
-      print(' Response Body: ${response.body}');
-
-      if (response.statusCode == 200 ||
-          response.statusCode == 204 ||
-          response.statusCode == 201) {
-        if (response.body.isNotEmpty) {
-          return jsonDecode(response.body);
-        } else {
-          return null;
-        }
-      } else {
-        throw Exception(
-            'DELETE Error [${response.statusCode}]: ${response.body}');
-      }
-    } catch (e) {
-      print(' DELETE Exception: $e');
-      rethrow;
-    }
-  }
+  //     if (response.statusCode == 200 ||
+  //         response.statusCode == 204 ||
+  //         response.statusCode == 201) {
+  //       if (response.body.isNotEmpty) {
+  //         return jsonDecode(response.body);
+  //       } else {
+  //         return null;
+  //       }
+  //     } else {
+  //       throw Exception(
+  //           'DELETE Error [${response.statusCode}]: ${response.body}');
+  //     }
+  //   } catch (e) {
+  //     print(' DELETE Exception: $e');
+  //     rethrow;
+  //   }
+  // }
 }

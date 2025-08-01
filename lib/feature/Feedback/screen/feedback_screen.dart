@@ -1,5 +1,6 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:charity_app/auth/widgets/auth_button.dart';
-import 'package:charity_app/auth/widgets/auth_custom_text_field.dart';
 import 'package:charity_app/constants/const_alert_dilog.dart';
 import 'package:charity_app/constants/custom_text.dart';
 import 'package:charity_app/core/extensions/context_extensions.dart';
@@ -105,7 +106,7 @@ class FeedbackScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 15),
                           Padding(
-                            padding: EdgeInsets.only(right: 5.0, left: 5),
+                            padding: const EdgeInsets.only(right: 5.0, left: 5),
                             child: Text(
                               "اسمك الظاهر للآخرين داخل التطبيق",
                               style: TextStyle(
