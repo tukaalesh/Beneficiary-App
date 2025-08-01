@@ -126,18 +126,6 @@ class FeedbackScreen extends StatelessWidget {
                               return null;
                             },
                           ),
-                          // AuthCustomTextField(
-                          //   hint: "",
-                          //   icon: const Icon(null),
-                          //   inputType: TextInputType.name,
-                          //   mycontroller: nameController,
-                          //   color: colorScheme.primary,
-                          //   valid: (value) {
-                          //     if (value!.isEmpty) return "يجب عليك إدخال الأسم";
-
-                          //     return null;
-                          //   },
-                          // ),
                           const SizedBox(height: 15),
                           Padding(
                             padding: const EdgeInsets.only(right: 5.0, left: 5),
@@ -164,22 +152,6 @@ class FeedbackScreen extends StatelessWidget {
                               return null;
                             },
                           ),
-                          // AuthCustomTextField(
-                          //   hint: "",
-                          //   icon: const Icon(null),
-                          //   inputType: TextInputType.name,
-                          //   mycontroller: commentController,
-                          //   color: colorScheme.secondary,
-                          //   valid: (value) {
-                          //     if (value!.isEmpty) {
-                          //       return "يجب عليك إدخال التعليق";
-                          //     }
-                          //     if (value.length < 12) {
-                          //       return "يجب ان يتضمن التعليق 10 محارف على الأقل";
-                          //     }
-                          //     return null;
-                          //   },
-                          // ),
                           const SizedBox(height: 20),
                           Authbutton(
                             buttonText: "إرسال",
