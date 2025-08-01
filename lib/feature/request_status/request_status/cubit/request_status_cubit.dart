@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:charity_app/feature/request_status/request_status/model/request_status_model.dart';
 import 'package:charity_app/main.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,25 +8,37 @@ class RequestStatusCubit extends Cubit<RequestStatusState> {
   RequestStatusCubit() : super(RequestStatusInitial());
 
   Future<void> fetchRequestStatus() async {
-    emit(RequestStatusLoading());
+  emit(RequestStatusLoading());
 
-    try {
-      final token = sharedPreferences.getString("token");
-      final response = await Api().get(
-        url: 'http://$localhost/api/projectstatuse/beneficiary',
-        token: "$token",
-      );
+  try {
+    final token = sharedPreferences.getString("token");
+    final response = await Api().get(
+      url: 'http://$localhost/api/projectstatuse/beneficiary',
+      token: token,
+    );
 
-      print(response);
+    final projectsJson = response['projects'];
 
-      final projectsJson = response['projects'] as List;
-      final projects = projectsJson
-          .map((json) => RequestStatusModel.fromJson(json))
-          .toList();
+    if (projectsJson == null || projectsJson is! List) {
+      emit(RequestStatusSuccess([]));
+      return;
+    }
 
-      emit(RequestStatusSuccess(projects));
-    } catch (e) {
-      emit(RequestStatusError('حدث خطأ أثناء جلب البيانات: $e'));
+    final projects = projectsJson
+        .map((json) => RequestStatusModel.fromJson(json))
+        .toList();
+
+    emit(RequestStatusSuccess(projects));
+  }
+   catch (e) {
+    print(' Error in fetchRequestStatus: $e');
+
+    if (e.toString().contains('404')) {
+      emit(RequestStatusSuccess([]));
+    } 
+    else {
+      emit(RequestStatusError(message: 'حدث خطأ أثناء جلب البيانات: $e'));
     }
   }
+}
 }

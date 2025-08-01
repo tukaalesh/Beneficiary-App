@@ -79,8 +79,7 @@ class _FormPageOneState extends State<FormPageOne> {
         "kids_description": kidsDescriptionController.text.trim(),
         "governorate": selectedGovernorate ?? "",
         "home_address": homeAddressController.text.trim(),
-        "monthly_income":
-            int.tryParse(monthlyIncomeController.text.trim()) ?? 0,
+        "monthly_income":int.tryParse(monthlyIncomeController.text.trim()) ?? 0,
         "current_job": currentJobController.text.trim(),
         "monthly_income_source": selectedIncomeSource ?? ""
       };

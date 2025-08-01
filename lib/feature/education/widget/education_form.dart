@@ -52,7 +52,7 @@ class _EducationFormState extends State<EducationForm> {
         neededEducationalHelp.add("ثياب مدرسية");
       }
       if (options['needsSchoolSupplies'] == true) {
-        neededEducationalHelp.add("مستلزمات مدرسية");
+        neededEducationalHelp.add("مستلزمات دراسية");
       }
       if (options['needsCostUni'] == true) {
         neededEducationalHelp.add("أقساط جامعية");
@@ -135,7 +135,7 @@ class _EducationFormState extends State<EducationForm> {
                               field.didChange(atLeastOneOptionSelected());
                             });
                           },
-                          title: Text("مستلزمات مدرسية",
+                          title: Text("مستلزمات دراسية",
                               style: TextStyle(
                                   color: isDark
                                       ? Colors.grey[400]

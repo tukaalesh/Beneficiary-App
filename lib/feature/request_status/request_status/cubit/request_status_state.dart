@@ -8,12 +8,11 @@ class RequestStatusLoading extends RequestStatusState {}
 
 class RequestStatusSuccess extends RequestStatusState {
   final List<RequestStatusModel> projects;
-
   RequestStatusSuccess(this.projects);
 }
 
 class RequestStatusError extends RequestStatusState {
   final String message;
 
-  RequestStatusError(this.message);
+  RequestStatusError({required this.message});
 }

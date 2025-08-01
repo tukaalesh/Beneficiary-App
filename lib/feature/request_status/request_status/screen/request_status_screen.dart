@@ -29,14 +29,17 @@ class _RequestStatusScreenState extends State<RequestStatusScreen> {
     final colorScheme = context.colorScheme;
 
     return BlocConsumer<RequestStatusCubit, RequestStatusState>(
-      listener: (context, state) {
-        if (state is RequestStatusError) {
-          ScaffoldMessenger.of(context).clearSnackBars();
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('حدث خطأ: ${state.message}')),
-          );
-        }
-      },
+     listener: (context, state) {
+      print('Bloc Listener received state: $state');
+
+  if (state is RequestStatusError) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('حدث خطأ: ${state.message}')),
+    );
+  }
+},
+
       builder: (context, state) {
         return Directionality(
           textDirection: TextDirection.rtl,

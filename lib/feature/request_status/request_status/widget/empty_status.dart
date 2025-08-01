@@ -18,7 +18,7 @@ class EmptyStatus extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              'لا توجد أي طلبات مساعدة حاليًا',
+               "لا يوجد أي مشروع مرتبط بك حالياً.",
               style: TextStyle(
                 fontSize: 18,
                 color: isDark ? Colors.grey[400] : Colors.black,
@@ -27,7 +27,7 @@ class EmptyStatus extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'لم تقم بتقديم أي طلب مساعدة بعد.\nعندما تقوم بإرسال طلب، ستتمكن من متابعة حالته هنا.',
+          'عندما تقوم بإرسال طلب مساعدة, ستتمكن من متابعة حالته هنا',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,

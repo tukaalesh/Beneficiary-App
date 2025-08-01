@@ -1,10 +1,6 @@
-// ignore_for_file: file_names
-
 import 'package:charity_app/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 
-// PreferredSizeWidget
-//app bar يلي جوا السكافولد بيتوقع   الحجم يكون كبير بس لازم مايكون هيك لازم يكون حجم app bar widget مفس حجم appBar يلي جوا السكافولد
 class ConstAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ConstAppBar({super.key, required this.title});
 
@@ -28,7 +24,7 @@ class ConstAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back),
+        icon: const Icon(Icons.arrow_back_ios_new),
         onPressed: () {
           Navigator.of(context).pop();
         },

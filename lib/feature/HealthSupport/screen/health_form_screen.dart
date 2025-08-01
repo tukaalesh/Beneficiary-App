@@ -174,7 +174,8 @@ class _HealthFormScreenState extends State<HealthFormScreen> {
           );
 
           if (state.daysRemaining != null) {}
-        } else if (state is HealthFormFailure) {
+        }
+         else if (state is HealthFormFailure) {
           showDialog(
             context: context,
             barrierDismissible: false,

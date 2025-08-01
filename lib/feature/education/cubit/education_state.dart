@@ -8,9 +8,13 @@ class EducationRequestSuccess extends EducationRequestState {}
 
 class EducationRequestFailure extends EducationRequestState {
   final String message;
-
-  EducationRequestFailure(this.message);
+  EducationRequestFailure({required this.message});
 }
-// class EducationFormAlreadySubmitted extends EducationRequestState {}
+ class EducationFormAlreadySubmitted extends EducationRequestState {
+    final double? daysRemaining;
+  EducationFormAlreadySubmitted({this.daysRemaining});
 
-// class EducationFormPhoneNumberAlreadyUsed extends EducationRequestState {}
+  @override
+  String toString() =>
+      'EducationFormAlreadySubmitted(daysRemaining: $daysRemaining)';
+ }

@@ -60,7 +60,8 @@ class HealthFormCubit extends Cubit<HealthFormState> {
 
         if (message == "تم إرسال طلب المساعدة الصحية بنجاح") {
           emit(HealthFormSuccess());
-        } else if (message ==
+        } 
+        else if (message ==
             "لا يمكنك تقديم طلب جديد قبل مرور 20 يوم على آخر طلب تم تقديمه.") {
           final daysRemaining =
               (response["days_remaining"] as num?)?.toDouble();
