@@ -29,9 +29,10 @@ class NutritionalScreen extends StatelessWidget {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) => CustomAlertDialogNoConfirm(
-                  title: "تم إرسال طلب المساعدة الغذائية بنجاح",
-                  cancelText: "إغلاق",
-                  onCancel: () {
+                   title:
+                  "تم استلام طلب المساعدة الغذائية بنجاح. سيتم التعامل معه في أقرب وقت، نرجو متابعة الإشعارات لمعرفة حالة الطلب.",
+              cancelText: "إغلاق",
+              onCancel: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         'NavigationMain', (route) => false);

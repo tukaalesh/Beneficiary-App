@@ -59,7 +59,8 @@ class NutritionalRequestCubit extends Cubit<NutritionalRequestState> {
         final message = response['message']?.toString();
         print(" message: $message");
 
-        if (message == "تم إرسال طلب المساعدة الصحية بنجاح") {
+       if (message != null && message.contains("تم إرسال طلب المساعدة")) 
+        {
           emit(NutritionalRequestSuccess());
         } 
         else if (message ==
