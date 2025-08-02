@@ -161,7 +161,9 @@ class _NutritionalFormState extends State<NutritionalForm> {
                     );
                   },
                 ),
-                const SizedBox(height: 10),
+           const SizedBox(height: 10),
+            Divider(height: 30, thickness: 1, color: Colors.grey[300]),
+
                 Align(
                   alignment: Alignment.centerRight,
                   child: Padding(
