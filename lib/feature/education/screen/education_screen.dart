@@ -47,7 +47,7 @@ class EducationScreen extends StatelessWidget {
                 barrierDismissible: false,
                 builder: (context) => CustomAlertDialogNoConfirm(
                   title:
-                      "نتفهم حاجتكم، ولكن لا يمكن تقديم طلب مساعدة تعليمية جديد إلا بعد مرور 20 يوم",
+                      "نتفهم حاجتكم، ولكن لا يمكن تقديم طلب مساعدة جديد إلا بعد مرور 20 يوم",
                   cancelText: "إغلاق",
                   onCancel: () {
                     Navigator.of(context).pushNamedAndRemoveUntil(

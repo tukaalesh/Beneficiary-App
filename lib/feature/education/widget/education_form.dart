@@ -172,7 +172,6 @@ class _EducationFormState extends State<EducationForm> {
                     );
                   },
                 ),
-            const SizedBox(height: 10),
             Divider(height: 30, thickness: 1, color: Colors.grey[300]),
 
                 Align(

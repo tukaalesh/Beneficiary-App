@@ -176,7 +176,7 @@ class _HousingFormScreenState extends State<HousingFormScreen> {
             barrierDismissible: false,
             builder: (context) => CustomAlertDialogNoConfirm(
               title:
-                  "نتفهم حاجتكم، ولكن لا يمكن تقديم طلب مساعدة سكنية جديد إلا بعد مرور 20 يوم",
+                  "نتفهم حاجتكم، ولكن لا يمكن تقديم طلب مساعدة جديد إلا بعد مرور 20 يوم",
               cancelText: "إغلاق",
               onCancel: () {
                 // Navigator.of(context).pop();

@@ -164,7 +164,7 @@ class _HealthFormScreenState extends State<HealthFormScreen> {
             barrierDismissible: false,
             builder: (context) => CustomAlertDialogNoConfirm(
               title:
-                  "نتفهم حاجتكم، ولكن لا يمكن تقديم طلب مساعدة صحية جديد إلا بعد مرور 20 يوم",
+                  "نتفهم حاجتكم، ولكن لا يمكن تقديم طلب مساعدة جديد إلا بعد مرور 20 يوم",
               cancelText: "إغلاق",
               onCancel: () {
                 // Navigator.of(context).pop();
