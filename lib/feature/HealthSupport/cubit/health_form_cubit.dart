@@ -31,7 +31,7 @@ class HealthFormCubit extends Cubit<HealthFormState> {
       final token = sharedPreferences.getString("token");
 
       final response = await Api().postt(
-        url: "http://$localhost/api/beneficiary/request/health",
+        url: "baseUrl/api/beneficiary/request/health",
         body: {
           "full_name": fullNameController,
           "age": ageController,
@@ -60,8 +60,7 @@ class HealthFormCubit extends Cubit<HealthFormState> {
 
         if (message == "تم إرسال طلب المساعدة الصحية بنجاح") {
           emit(HealthFormSuccess());
-        } 
-        else if (message ==
+        } else if (message ==
             "لا يمكنك تقديم طلب جديد قبل مرور 20 يوم على آخر طلب تم تقديمه.") {
           final daysRemaining =
               (response["days_remaining"] as num?)?.toDouble();

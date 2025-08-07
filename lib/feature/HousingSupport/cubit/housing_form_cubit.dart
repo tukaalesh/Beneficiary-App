@@ -33,7 +33,7 @@ class HousingFormCubit extends Cubit<HousingFormState> {
       final token = sharedPreferences.getString("token");
 
       final response = await Api().postt(
-        url: "http://$localhost/api/beneficiary/request/residential",
+        url: "baseUrl/api/beneficiary/request/residential",
         body: {
           "full_name": fullNameController,
           "age": ageController,

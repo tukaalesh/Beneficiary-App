@@ -8,37 +8,35 @@ class RequestStatusCubit extends Cubit<RequestStatusState> {
   RequestStatusCubit() : super(RequestStatusInitial());
 
   Future<void> fetchRequestStatus() async {
-  emit(RequestStatusLoading());
+    emit(RequestStatusLoading());
 
-  try {
-    final token = sharedPreferences.getString("token");
-    final response = await Api().get(
-      url: 'http://$localhost/api/projectstatuse/beneficiary',
-      token: token,
-    );
+    try {
+      final token = sharedPreferences.getString("token");
+      final response = await Api().get(
+        url: 'baseUrl/api/projectstatuse/beneficiary',
+        token: token,
+      );
 
-    final projectsJson = response['projects'];
+      final projectsJson = response['projects'];
 
-    if (projectsJson == null || projectsJson is! List) {
-      emit(RequestStatusSuccess([]));
-      return;
+      if (projectsJson == null || projectsJson is! List) {
+        emit(RequestStatusSuccess([]));
+        return;
+      }
+
+      final projects = projectsJson
+          .map((json) => RequestStatusModel.fromJson(json))
+          .toList();
+
+      emit(RequestStatusSuccess(projects));
+    } catch (e) {
+      print(' Error in fetchRequestStatus: $e');
+
+      if (e.toString().contains('404')) {
+        emit(RequestStatusSuccess([]));
+      } else {
+        emit(RequestStatusError(message: 'حدث خطأ أثناء جلب البيانات: $e'));
+      }
     }
-
-    final projects = projectsJson
-        .map((json) => RequestStatusModel.fromJson(json))
-        .toList();
-
-    emit(RequestStatusSuccess(projects));
   }
-   catch (e) {
-    print(' Error in fetchRequestStatus: $e');
-
-    if (e.toString().contains('404')) {
-      emit(RequestStatusSuccess([]));
-    } 
-    else {
-      emit(RequestStatusError(message: 'حدث خطأ أثناء جلب البيانات: $e'));
-    }
-  }
-}
 }

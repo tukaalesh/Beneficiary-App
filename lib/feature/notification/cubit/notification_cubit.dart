@@ -18,7 +18,7 @@ class NotificationCubit extends Cubit<NotificationState> {
       final token = sharedPreferences.getString('token');
 
       final res = await Api().get(
-        url: "http://$localhost/api/notifications/beneficiary",
+        url: "baseUrl/api/notifications/beneficiary",
         token: "$token",
       );
 
