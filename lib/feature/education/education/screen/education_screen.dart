@@ -1,10 +1,11 @@
 // ignore_for_file: avoid_print
 
 import 'package:charity_app/constants/const_alert_dilog.dart';
-import 'package:charity_app/feature/education/cubit/education_form_cubit.dart';
-import 'package:charity_app/feature/education/cubit/education_state.dart';
-import 'package:charity_app/feature/education/widget/education_form.dart';
-import 'package:charity_app/feature/education/widget/form_page0ne.dart';
+
+import 'package:charity_app/feature/education/education/cubit/education_form_cubit.dart';
+import 'package:charity_app/feature/education/education/cubit/education_state.dart';
+import 'package:charity_app/feature/education/education/widget/education_form.dart';
+import 'package:charity_app/feature/education/education/widget/form_page0ne.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:charity_app/constants/const_appBar.dart';
@@ -31,10 +32,10 @@ class EducationScreen extends StatelessWidget {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) => CustomAlertDialogNoConfirm(
-                   title:
-                  "تم استلام طلب المساعدة التعيلمية بنجاح. سيتم التعامل معه في أقرب وقت، نرجو متابعة الإشعارات لمعرفة حالة الطلب.",
-              cancelText: "إغلاق",
-              onCancel: () {
+                  title:
+                      "تم استلام طلب المساعدة التعليمية بنجاح. سيتم التعامل معه في أقرب وقت، نرجو متابعة الإشعارات لمعرفة حالة الطلب.",
+                  cancelText: "إغلاق",
+                  onCancel: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         'NavigationMain', (route) => false);
@@ -65,9 +66,7 @@ class EducationScreen extends StatelessWidget {
                   onCancel: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();
-                    context
-                        .read<EducationFormCubit>()
-                        .resetForm(); 
+                    context.read<EducationFormCubit>().resetForm();
                     Navigator.of(context).pushNamedAndRemoveUntil(
                       'EducationScreen',
                       (route) => false,

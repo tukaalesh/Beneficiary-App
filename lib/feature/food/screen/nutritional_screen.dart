@@ -1,7 +1,7 @@
 import 'package:charity_app/constants/const_alert_dilog.dart';
 import 'package:charity_app/constants/const_appBar.dart';
 import 'package:charity_app/core/extensions/context_extensions.dart';
-import 'package:charity_app/feature/education/widget/form_page0ne.dart';
+import 'package:charity_app/feature/education/education/widget/form_page0ne.dart';
 import 'package:charity_app/feature/food/cubit/nutritional_cubit.dart';
 import 'package:charity_app/feature/food/cubit/nutritional_state.dart';
 import 'package:charity_app/feature/food/widget/nutritional_form.dart';
@@ -29,10 +29,10 @@ class NutritionalScreen extends StatelessWidget {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) => CustomAlertDialogNoConfirm(
-                   title:
-                  "تم استلام طلب المساعدة الغذائية بنجاح. سيتم التعامل معه في أقرب وقت، نرجو متابعة الإشعارات لمعرفة حالة الطلب.",
-              cancelText: "إغلاق",
-              onCancel: () {
+                  title:
+                      "تم استلام طلب المساعدة الغذائية بنجاح. سيتم التعامل معه في أقرب وقت، نرجو متابعة الإشعارات لمعرفة حالة الطلب.",
+                  cancelText: "إغلاق",
+                  onCancel: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         'NavigationMain', (route) => false);
@@ -61,8 +61,8 @@ class NutritionalScreen extends StatelessWidget {
                   title: "حدث خطأ ما ! يرجى المحاولة فيما بعد",
                   cancelText: "إغلاق",
                   onCancel: () {
-                    Navigator.of(context).pop(); 
-                     Navigator.of(context).pushNamedAndRemoveUntil(
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pushNamedAndRemoveUntil(
                         'NavigationMain', (route) => false);
                     context.read<NutritionalFormCubit>().resetForm();
                   },
@@ -100,9 +100,11 @@ class NutritionalScreen extends StatelessWidget {
                       onSubmit: (pageTwoData) {
                         final allFormData =
                             context.read<NutritionalFormCubit>().allFormData;
-                        final completeData = {...allFormData,...pageTwoData};
+                        final completeData = {...allFormData, ...pageTwoData};
 
-                        context.read<NutritionalRequestCubit>().sendNutritionalRequest(
+                        context
+                            .read<NutritionalRequestCubit>()
+                            .sendNutritionalRequest(
                               fullName: completeData['full_name'] ?? '',
                               age: int.tryParse(
                                       completeData['age'].toString()) ??
@@ -110,8 +112,7 @@ class NutritionalScreen extends StatelessWidget {
                               gender: completeData['gender'] ?? '',
                               maritalStatus:
                                   completeData['marital_status'] ?? '',
-                              phoneNumber:
-                                  completeData['phone_number'] ?? '',
+                              phoneNumber: completeData['phone_number'] ?? '',
                               numberOfKids: int.tryParse(
                                       completeData['number_of_kids']
                                           .toString()) ??
@@ -119,8 +120,7 @@ class NutritionalScreen extends StatelessWidget {
                               kidsDescription:
                                   completeData['kids_description'] ?? '',
                               governorate: completeData['governorate'] ?? '',
-                              homeAddress:
-                                  completeData['home_address'] ?? '',
+                              homeAddress: completeData['home_address'] ?? '',
                               monthlyIncome: int.tryParse(
                                       completeData['monthly_income']
                                           .toString()) ??
