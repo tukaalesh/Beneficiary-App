@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
                 fontFamily: 'IBMPlexSansArabic',
               ),
             ),
-            initialRoute: "Welcom",
+            initialRoute: "Splash",
             routes: {
               "Splash": (context) => const SplashScreen(),
               "NavigationMain": (context) => const NavigationMain(),
