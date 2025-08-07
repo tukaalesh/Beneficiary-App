@@ -13,7 +13,7 @@ class RequestStatusCubit extends Cubit<RequestStatusState> {
     try {
       final token = sharedPreferences.getString("token");
       final response = await Api().get(
-        url: 'baseUrl/api/projectstatuse/beneficiary',
+        url: '$baseUrl/api/projectstatuse/beneficiary',
         token: token,
       );
 

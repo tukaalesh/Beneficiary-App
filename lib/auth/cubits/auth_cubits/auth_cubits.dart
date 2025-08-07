@@ -19,7 +19,7 @@ class AuthCubits extends Cubit<AuthStates> {
     try {
       // final responseData =
       await Api().post(
-        url: "baseUrl/api/register/beneficiary",
+        url: "$baseUrl/api/register/beneficiary",
         body: {
           "full_name": fullNameController.text,
           "email": emailController.text,
@@ -49,7 +49,7 @@ class AuthCubits extends Cubit<AuthStates> {
 
     try {
       final response = await Api().post(
-        url: "baseUrl/api/login/beneficiary",
+        url: "$baseUrl/api/login/beneficiary",
         body: {
           "email": emailController.text,
           "password": passwordController.text,
@@ -73,7 +73,7 @@ class AuthCubits extends Cubit<AuthStates> {
       final token = sharedPreferences.getString('token');
 
       final response = await Api().post(
-          url: "baseUrl/api/logout/beneficiary", body: null, token: "$token");
+          url: "$baseUrl/api/logout/beneficiary", body: null, token: "$token");
       if (response["message"] == 'Logout successful') {
         emit(LogOutSuccess());
       } else {

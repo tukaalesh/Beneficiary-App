@@ -15,7 +15,7 @@ class CountNotificationCubit extends Cubit<CountNotificationState> {
       final token = sharedPreferences.getString("token") ?? '';
 
       final responseData = await Api().get(
-        url: "baseUrl/api/notifications/unread",
+        url: "$baseUrl/api/notifications/unread",
         token: token,
       );
 

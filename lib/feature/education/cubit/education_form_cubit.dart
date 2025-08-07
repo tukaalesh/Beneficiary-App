@@ -31,7 +31,7 @@ class EducationRequestCubit extends Cubit<EducationRequestState> {
     try {
       final token = sharedPreferences.getString("token");
       final response = await Api().postt(
-        url: "baseUrl/api/beneficiary/request/educational",
+        url: "$baseUrl/api/beneficiary/request/educational",
         body: {
           "full_name": fullName,
           "age": age.toString(),

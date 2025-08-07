@@ -15,7 +15,7 @@ class FeedbackCubit extends Cubit<FeedbackStates> {
     try {
       final token = sharedPreferences.getString("token");
       final responseData = await Api().post(
-        url: "baseUrl/api/feedback/beneficiary",
+        url: "$baseUrl/api/feedback/beneficiary",
         body: {
           "user_name": user_name,
           "message": message,

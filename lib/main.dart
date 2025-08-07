@@ -30,6 +30,7 @@ late SharedPreferences sharedPreferences;
 const String localhost = "127.0.0.1:8000";
 
 const String baseUrl = "http://$localhost";
+
 //const String localhost = "ffa3e8341e13.ngrok-free.app";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

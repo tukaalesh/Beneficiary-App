@@ -31,7 +31,7 @@ class HealthFormCubit extends Cubit<HealthFormState> {
       final token = sharedPreferences.getString("token");
 
       final response = await Api().postt(
-        url: "baseUrl/api/beneficiary/request/health",
+        url: "$baseUrl/api/beneficiary/request/health",
         body: {
           "full_name": fullNameController,
           "age": ageController,
