@@ -4,6 +4,7 @@ import 'package:charity_app/feature/education/cubit/education_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:charity_app/helper/api.dart';
 import 'package:charity_app/main.dart';
+
 class EducationRequestCubit extends Cubit<EducationRequestState> {
   EducationRequestCubit() : super(EducationRequestInitial());
 
@@ -30,7 +31,7 @@ class EducationRequestCubit extends Cubit<EducationRequestState> {
     try {
       final token = sharedPreferences.getString("token");
       final response = await Api().postt(
-        url: "http://$localhost/api/beneficiary/request/educational",
+        url: "baseUrl/api/beneficiary/request/educational",
         body: {
           "full_name": fullName,
           "age": age.toString(),
@@ -52,24 +53,22 @@ class EducationRequestCubit extends Cubit<EducationRequestState> {
         token: token,
       );
       print(response);
-   if (response is Map<String, dynamic>) {
+      if (response is Map<String, dynamic>) {
         final message = response['message']?.toString();
         print(" message: $message");
 
-        if (message != null && message.contains("تم إرسال طلب المساعدة")) {
+        if (message == "تم إرسال طلب المساعدة الصحية بنجاح") {
           emit(EducationRequestSuccess());
-        } 
-        else if (message ==
+        } else if (message ==
             "لا يمكنك تقديم طلب جديد قبل مرور 20 يوم على آخر طلب تم تقديمه.") {
           final daysRemaining =
               (response["days_remaining"] as num?)?.toDouble();
           emit(EducationFormAlreadySubmitted(daysRemaining: daysRemaining));
         } else {
-          emit(EducationRequestFailure(
-             message:  "رسالة غير معروفة من الخادم"));
+          emit(EducationRequestFailure(message: "رسالة غير معروفة من الخادم"));
         }
       } else {
-        emit(EducationRequestFailure(message:  ""));
+        emit(EducationRequestFailure(message: ""));
       }
     } catch (e) {
       print(" Error : $e");

@@ -28,6 +28,8 @@ late SharedPreferences sharedPreferences;
 
 // const String localhost = "10.0.2.2:8000";
 const String localhost = "127.0.0.1:8000";
+
+const String baseUrl = "http://$localhost";
 //const String localhost = "ffa3e8341e13.ngrok-free.app";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -59,7 +61,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => NutritionalRequestCubit()),
         BlocProvider(create: (context) => HousingFormCubit()),
         BlocProvider(create: (context) => HealthFormCubit()),
-        BlocProvider<CountNotificationCubit>(create: (_) => CountNotificationCubit()..fetchUnreadNotifications(),
+        BlocProvider<CountNotificationCubit>(
+          create: (_) => CountNotificationCubit()..fetchUnreadNotifications(),
         )
       ],
       child: BlocBuilder<ThemeCubits, bool>(
