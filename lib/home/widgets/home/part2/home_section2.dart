@@ -1,6 +1,6 @@
 import 'package:charity_app/feature/HealthSupport/screen/health_form_screen.dart';
 import 'package:charity_app/feature/HousingSupport/screen/housing_form_screen.dart';
-import 'package:charity_app/feature/education/screen/education_screen.dart';
+import 'package:charity_app/feature/education/education/screen/education_screen.dart';
 import 'package:charity_app/feature/food/screen/nutritional_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +13,7 @@ class HomeSection2 extends StatelessWidget {
 
     final List<Map<String, dynamic>> supportOptions = [
       {
-        "title": "دعم صحي",
+        "title": "د صحي",
         "icon": Icons.medical_services,
         "page": () => const HealthFormScreen(),
       },
