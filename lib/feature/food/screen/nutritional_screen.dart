@@ -1,7 +1,7 @@
 import 'package:charity_app/constants/const_alert_dilog.dart';
 import 'package:charity_app/constants/const_appBar.dart';
 import 'package:charity_app/core/extensions/context_extensions.dart';
-import 'package:charity_app/feature/education/education/widget/form_page0ne.dart';
+import 'package:charity_app/feature/education/widget/form_page0ne.dart';
 import 'package:charity_app/feature/food/cubit/nutritional_cubit.dart';
 import 'package:charity_app/feature/food/cubit/nutritional_state.dart';
 import 'package:charity_app/feature/food/widget/nutritional_form.dart';

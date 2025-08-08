@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
 
-import 'package:charity_app/feature/education/education/cubit/education_state.dart';
+import 'package:charity_app/feature/education/cubit/education_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:charity_app/helper/api.dart';
 import 'package:charity_app/main.dart';

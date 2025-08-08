@@ -2,10 +2,10 @@
 
 import 'package:charity_app/constants/const_alert_dilog.dart';
 
-import 'package:charity_app/feature/education/education/cubit/education_form_cubit.dart';
-import 'package:charity_app/feature/education/education/cubit/education_state.dart';
-import 'package:charity_app/feature/education/education/widget/education_form.dart';
-import 'package:charity_app/feature/education/education/widget/form_page0ne.dart';
+import 'package:charity_app/feature/education/cubit/education_form_cubit.dart';
+import 'package:charity_app/feature/education/cubit/education_state.dart';
+import 'package:charity_app/feature/education/widget/education_form.dart';
+import 'package:charity_app/feature/education/widget/form_page0ne.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:charity_app/constants/const_appBar.dart';

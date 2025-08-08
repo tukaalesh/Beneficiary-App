@@ -29,17 +29,16 @@ class _RequestStatusScreenState extends State<RequestStatusScreen> {
     final colorScheme = context.colorScheme;
 
     return BlocConsumer<RequestStatusCubit, RequestStatusState>(
-     listener: (context, state) {
-      print('Bloc Listener received state: $state');
+      listener: (context, state) {
+        print('Bloc Listener received state: $state');
 
-  if (state is RequestStatusError) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('حدث خطأ: ${state.message}')),
-    );
-  }
-},
-
+        if (state is RequestStatusError) {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('حدث خطأ: ${state.message}')),
+          );
+        }
+      },
       builder: (context, state) {
         return Directionality(
           textDirection: TextDirection.rtl,
@@ -49,6 +48,7 @@ class _RequestStatusScreenState extends State<RequestStatusScreen> {
               title: const Text("تتبع حالة الطلب"),
               backgroundColor: colorScheme.surface,
               leading: null,
+              automaticallyImplyLeading: false,
             ),
             body: RefreshIndicator(
               onRefresh: () async {
