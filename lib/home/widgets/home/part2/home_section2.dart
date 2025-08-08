@@ -13,7 +13,7 @@ class HomeSection2 extends StatelessWidget {
 
     final List<Map<String, dynamic>> supportOptions = [
       {
-        "title": "د صحي",
+        "title": "دعم صحي",
         "icon": Icons.medical_services,
         "page": () => const HealthFormScreen(),
       },
