@@ -10,10 +10,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-class FeedbackScreen extends StatelessWidget {
+class FeedbackScreen extends StatefulWidget {
   FeedbackScreen({super.key});
+
+  @override
+  State<FeedbackScreen> createState() => _FeedbackScreenState();
+}
+
+class _FeedbackScreenState extends State<FeedbackScreen> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController commentController = TextEditingController();
 
