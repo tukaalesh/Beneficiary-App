@@ -26,8 +26,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 late SharedPreferences sharedPreferences;
 
-// const String localhost = "10.0.2.2:8000";
-const String localhost = "127.0.0.1:8000";
+ const String localhost = "10.0.2.2:8000";
+//const String localhost = "127.0.0.1:8000";
 
 const String baseUrl = "http://$localhost";
 
