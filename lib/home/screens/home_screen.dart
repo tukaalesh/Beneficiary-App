@@ -24,6 +24,7 @@ class HomeScreen extends StatelessWidget {
           title: const Text("الصفحة الرئيسية"),
           backgroundColor: colorScheme.surface,
           leading: null,
+          automaticallyImplyLeading: false,
           actions: [
             BlocBuilder<CountNotificationCubit, CountNotificationState>(
               builder: (context, state) {

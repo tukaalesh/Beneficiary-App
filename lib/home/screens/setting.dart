@@ -40,6 +40,7 @@ class Setting extends StatelessWidget {
               title: const Text("الإعدادات"),
               backgroundColor: colorScheme.surface,
               leading: null,
+              automaticallyImplyLeading: false,
             ),
             backgroundColor: colorScheme.surface,
             body: RefreshIndicator(

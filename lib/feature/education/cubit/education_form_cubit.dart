@@ -57,7 +57,7 @@ class EducationRequestCubit extends Cubit<EducationRequestState> {
         final message = response['message']?.toString();
         print(" message: $message");
 
-        if (message == "تم إرسال طلب المساعدة الصحية بنجاح") {
+        if (message != null && message.contains("تم إرسال طلب المساعدة")) {
           emit(EducationRequestSuccess());
         } else if (message ==
             "لا يمكنك تقديم طلب جديد قبل مرور 20 يوم على آخر طلب تم تقديمه.") {

@@ -10,10 +10,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-class FeedbackScreen extends StatelessWidget {
+class FeedbackScreen extends StatefulWidget {
   FeedbackScreen({super.key});
+
+  @override
+  State<FeedbackScreen> createState() => _FeedbackScreenState();
+}
+
+class _FeedbackScreenState extends State<FeedbackScreen> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController commentController = TextEditingController();
 
@@ -29,7 +34,7 @@ class FeedbackScreen extends StatelessWidget {
             context: context,
             barrierDismissible: false,
             builder: (context) => CustomAlertDialogNoConfirm(
-              title: "تم إرسال التعليق بنجاح",
+              title: "شكرًا لمشاركتك، تم استلام تعليقك وسيتم النظر فيه بعناية.",
               cancelText: "إغلاق",
               onCancel: () {
                 Navigator.of(context).pop();
@@ -45,7 +50,7 @@ class FeedbackScreen extends StatelessWidget {
             barrierDismissible: false,
             builder: (context) => CustomAlertDialogNoConfirm(
               title:
-                  "يجب أن تقوم بتقديم طلب مساعدة واحد على الأقل قبل إرسال الفيدباك.",
+                  "يُرجى تقديم طلب مساعدة واحد على الأقل قبل إرسال الملاحظات، وذلك لضمان تقييم الخدمة المقدّمة بشكل دقيق.",
               cancelText: "إغلاق",
               onCancel: () {
                 Navigator.of(context).pop();
@@ -80,6 +85,7 @@ class FeedbackScreen extends StatelessWidget {
                     title: const Text("إرسال التقييم"),
                     backgroundColor: colorScheme.surface,
                     leading: null,
+                    automaticallyImplyLeading: false,
                   ),
                   body: Form(
                     key: formKey,
