@@ -33,7 +33,7 @@ class EducationScreen extends StatelessWidget {
                 barrierDismissible: false,
                 builder: (context) => CustomAlertDialogNoConfirm(
                    title:
-                  "تم استلام طلب المساعدة التعليمية بنجاح. سيتم التعامل معه في أقرب وقت، نرجو متابعة الإشعارات لمعرفة حالة الطلب.",
+                  "تم استلام طلب المساعدة التعليمي بنجاح. سيتم التعامل معه في أقرب وقت، نرجو متابعة الإشعارات لمعرفة حالة الطلب.",
               cancelText: "إغلاق",
               onCancel: () {
                     Navigator.of(context).pop();

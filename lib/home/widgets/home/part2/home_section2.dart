@@ -68,7 +68,9 @@ class HomeSection2 extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 30,
-                        backgroundColor: Colors.grey[100],
+                        backgroundColor:Theme.of(context).brightness == Brightness.dark
+                                        ? Colors.grey[700]
+                                        : Colors.grey[200],
                         child: Icon(
                           item["icon"],
                           size: 30,
